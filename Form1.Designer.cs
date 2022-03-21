@@ -34,10 +34,11 @@ namespace License_Plate_Generator
             this.NextTSMI = new System.Windows.Forms.ToolStripMenuItem();
             this.BackTSMI = new System.Windows.Forms.ToolStripMenuItem();
             this.RandomTSMI = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.PlatePictureBox = new System.Windows.Forms.PictureBox();
             this.ColorButton = new System.Windows.Forms.Button();
+            this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.MenuStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlatePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // MenuStrip
@@ -82,27 +83,34 @@ namespace License_Plate_Generator
             this.RandomTSMI.Size = new System.Drawing.Size(234, 26);
             this.RandomTSMI.Text = "Рандомный";
             // 
-            // pictureBox1
+            // PlatePictureBox
             // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Image = global::License_Plate_Generator.Properties.Resources.sample;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 30);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(782, 521);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
+            this.PlatePictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PlatePictureBox.Image = global::License_Plate_Generator.Properties.Resources.sample;
+            this.PlatePictureBox.Location = new System.Drawing.Point(0, 30);
+            this.PlatePictureBox.Name = "PlatePictureBox";
+            this.PlatePictureBox.Size = new System.Drawing.Size(782, 521);
+            this.PlatePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PlatePictureBox.TabIndex = 1;
+            this.PlatePictureBox.TabStop = false;
             // 
             // ColorButton
             // 
             this.ColorButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ColorButton.BackgroundImage = global::License_Plate_Generator.Properties.Resources.button_icon;
             this.ColorButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ColorButton.Location = new System.Drawing.Point(707, 476);
+            this.ColorButton.FlatAppearance.BorderSize = 0;
+            this.ColorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ColorButton.Location = new System.Drawing.Point(706, 475);
             this.ColorButton.Name = "ColorButton";
             this.ColorButton.Size = new System.Drawing.Size(75, 75);
             this.ColorButton.TabIndex = 2;
             this.ColorButton.UseVisualStyleBackColor = true;
+            this.ColorButton.Click += new System.EventHandler(this.ColorButton_Click);
+            // 
+            // colorDialog
+            // 
+            this.colorDialog.AllowFullOpen = false;
             // 
             // Form1
             // 
@@ -110,7 +118,7 @@ namespace License_Plate_Generator
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(782, 551);
             this.Controls.Add(this.ColorButton);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.PlatePictureBox);
             this.Controls.Add(this.MenuStrip);
             this.MainMenuStrip = this.MenuStrip;
             this.Name = "Form1";
@@ -118,7 +126,7 @@ namespace License_Plate_Generator
             this.Load += new System.EventHandler(this.Form1_Load);
             this.MenuStrip.ResumeLayout(false);
             this.MenuStrip.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlatePictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -131,8 +139,9 @@ namespace License_Plate_Generator
         private System.Windows.Forms.ToolStripMenuItem NextTSMI;
         private System.Windows.Forms.ToolStripMenuItem BackTSMI;
         private System.Windows.Forms.ToolStripMenuItem RandomTSMI;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox PlatePictureBox;
         private System.Windows.Forms.Button ColorButton;
+        private System.Windows.Forms.ColorDialog colorDialog;
     }
 }
 

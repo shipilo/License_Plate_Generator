@@ -77,5 +77,14 @@ namespace License_Plate_Generator
             if (reader != null) reader.Close();
             sqlConnection.Close();
         }
+
+        private void ColorButton_Click(object sender, EventArgs e)
+        {
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                PlatePictureBox.BackColor = colorDialog.Color;
+                ColorButton.BackColor = colorDialog.Color;
+            }
+        }
     }
 }
