@@ -37,6 +37,12 @@ namespace License_Plate_Generator
             this.PlatePictureBox = new System.Windows.Forms.PictureBox();
             this.ColorButton = new System.Windows.Forms.Button();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
+            this.Symbol1 = new System.Windows.Forms.Label();
+            this.Number1 = new System.Windows.Forms.Label();
+            this.Number2 = new System.Windows.Forms.Label();
+            this.Number3 = new System.Windows.Forms.Label();
+            this.Symbol2 = new System.Windows.Forms.Label();
+            this.Symbol3 = new System.Windows.Forms.Label();
             this.MenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PlatePictureBox)).BeginInit();
             this.SuspendLayout();
@@ -59,7 +65,7 @@ namespace License_Plate_Generator
             this.BackTSMI,
             this.RandomTSMI});
             this.GenerateTSMI.Name = "GenerateTSMI";
-            this.GenerateTSMI.Size = new System.Drawing.Size(129, 26);
+            this.GenerateTSMI.Size = new System.Drawing.Size(129, 24);
             this.GenerateTSMI.Text = "Сгенерировать";
             // 
             // NextTSMI
@@ -68,6 +74,7 @@ namespace License_Plate_Generator
             this.NextTSMI.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.NextTSMI.Size = new System.Drawing.Size(234, 26);
             this.NextTSMI.Text = "Следующий";
+            this.NextTSMI.Click += new System.EventHandler(this.NextTSMI_Click);
             // 
             // BackTSMI
             // 
@@ -75,6 +82,7 @@ namespace License_Plate_Generator
             this.BackTSMI.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
             this.BackTSMI.Size = new System.Drawing.Size(234, 26);
             this.BackTSMI.Text = "Предыдущий";
+            this.BackTSMI.Click += new System.EventHandler(this.BackTSMI_Click);
             // 
             // RandomTSMI
             // 
@@ -82,6 +90,7 @@ namespace License_Plate_Generator
             this.RandomTSMI.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
             this.RandomTSMI.Size = new System.Drawing.Size(234, 26);
             this.RandomTSMI.Text = "Рандомный";
+            this.RandomTSMI.Click += new System.EventHandler(this.RandomTSMI_Click);
             // 
             // PlatePictureBox
             // 
@@ -112,11 +121,93 @@ namespace License_Plate_Generator
             // 
             this.colorDialog.AllowFullOpen = false;
             // 
+            // Symbol1
+            // 
+            this.Symbol1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.Symbol1.AutoSize = true;
+            this.Symbol1.BackColor = System.Drawing.Color.Transparent;
+            this.Symbol1.Font = new System.Drawing.Font("Microsoft Sans Serif", 70.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Symbol1.Location = new System.Drawing.Point(12, 223);
+            this.Symbol1.Name = "Symbol1";
+            this.Symbol1.Size = new System.Drawing.Size(133, 132);
+            this.Symbol1.TabIndex = 3;
+            this.Symbol1.Text = "A";
+            // 
+            // Number1
+            // 
+            this.Number1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.Number1.AutoSize = true;
+            this.Number1.BackColor = System.Drawing.Color.Transparent;
+            this.Number1.Font = new System.Drawing.Font("Microsoft Sans Serif", 70.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Number1.Location = new System.Drawing.Point(114, 223);
+            this.Number1.Name = "Number1";
+            this.Number1.Size = new System.Drawing.Size(120, 132);
+            this.Number1.TabIndex = 4;
+            this.Number1.Text = "1";
+            // 
+            // Number2
+            // 
+            this.Number2.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.Number2.AutoSize = true;
+            this.Number2.BackColor = System.Drawing.Color.Transparent;
+            this.Number2.Font = new System.Drawing.Font("Microsoft Sans Serif", 70.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Number2.Location = new System.Drawing.Point(203, 223);
+            this.Number2.Name = "Number2";
+            this.Number2.Size = new System.Drawing.Size(120, 132);
+            this.Number2.TabIndex = 5;
+            this.Number2.Text = "2";
+            // 
+            // Number3
+            // 
+            this.Number3.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.Number3.AutoSize = true;
+            this.Number3.BackColor = System.Drawing.Color.Transparent;
+            this.Number3.Font = new System.Drawing.Font("Microsoft Sans Serif", 70.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Number3.Location = new System.Drawing.Point(294, 223);
+            this.Number3.Name = "Number3";
+            this.Number3.Size = new System.Drawing.Size(120, 132);
+            this.Number3.TabIndex = 6;
+            this.Number3.Text = "3";
+            // 
+            // Symbol2
+            // 
+            this.Symbol2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Symbol2.AutoSize = true;
+            this.Symbol2.BackColor = System.Drawing.Color.Transparent;
+            this.Symbol2.Font = new System.Drawing.Font("Microsoft Sans Serif", 70.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Symbol2.Location = new System.Drawing.Point(379, 223);
+            this.Symbol2.Name = "Symbol2";
+            this.Symbol2.Size = new System.Drawing.Size(133, 132);
+            this.Symbol2.TabIndex = 7;
+            this.Symbol2.Text = "B";
+            // 
+            // Symbol3
+            // 
+            this.Symbol3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Symbol3.AutoSize = true;
+            this.Symbol3.BackColor = System.Drawing.Color.Transparent;
+            this.Symbol3.Font = new System.Drawing.Font("Microsoft Sans Serif", 70.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Symbol3.ForeColor = System.Drawing.Color.Black;
+            this.Symbol3.Location = new System.Drawing.Point(473, 223);
+            this.Symbol3.Name = "Symbol3";
+            this.Symbol3.Size = new System.Drawing.Size(139, 132);
+            this.Symbol3.TabIndex = 8;
+            this.Symbol3.Text = "C";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(782, 551);
+            this.Controls.Add(this.Symbol3);
+            this.Controls.Add(this.Symbol2);
+            this.Controls.Add(this.Number3);
+            this.Controls.Add(this.Number2);
+            this.Controls.Add(this.Number1);
+            this.Controls.Add(this.Symbol1);
             this.Controls.Add(this.ColorButton);
             this.Controls.Add(this.PlatePictureBox);
             this.Controls.Add(this.MenuStrip);
@@ -142,6 +233,12 @@ namespace License_Plate_Generator
         private System.Windows.Forms.PictureBox PlatePictureBox;
         private System.Windows.Forms.Button ColorButton;
         private System.Windows.Forms.ColorDialog colorDialog;
+        private System.Windows.Forms.Label Symbol1;
+        private System.Windows.Forms.Label Number1;
+        private System.Windows.Forms.Label Number2;
+        private System.Windows.Forms.Label Number3;
+        private System.Windows.Forms.Label Symbol2;
+        private System.Windows.Forms.Label Symbol3;
     }
 }
 

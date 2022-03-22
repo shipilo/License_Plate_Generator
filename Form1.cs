@@ -14,7 +14,7 @@ namespace License_Plate_Generator
         public Form1()
         {
             InitializeComponent();
-            sqlConnection = new SqlConnection("Server=localhost;Integrated security=SSPI;database=master");
+            sqlConnection = new SqlConnection(@"Server=.\SQLEXPRESS;Integrated security=SSPI;database=master");
             plates = new List<string>();
         }
 
@@ -76,6 +76,18 @@ namespace License_Plate_Generator
 
             if (reader != null) reader.Close();
             sqlConnection.Close();
+
+
+
+            Symbol1.Parent = PlatePictureBox;
+            Symbol2.Parent = PlatePictureBox;
+            Symbol3.Parent = PlatePictureBox;
+
+            Number1.Parent = PlatePictureBox;
+            Number2.Parent = PlatePictureBox;
+            Number3.Parent = PlatePictureBox;
+
+
         }
 
         private void ColorButton_Click(object sender, EventArgs e)
@@ -85,6 +97,21 @@ namespace License_Plate_Generator
                 PlatePictureBox.BackColor = colorDialog.Color;
                 ColorButton.BackColor = colorDialog.Color;
             }
+        }
+
+        private void NextTSMI_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BackTSMI_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RandomTSMI_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
