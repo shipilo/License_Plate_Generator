@@ -12,6 +12,18 @@ namespace License_Plate_Generator
         private char[] numbers = new char[3];
         private char[] symbols = new char[3];
 
+        public char[] Symbols
+        {
+            get { return symbols; }
+            set { symbols = value; }
+        }
+        public char[] Numbers
+        {
+            get { return numbers; }
+            set { numbers = value; }
+        }
+
+
         public override string ToString()
         {
             //пример: "A000AA"

@@ -6,12 +6,12 @@ using System.Windows.Forms;
 
 namespace License_Plate_Generator
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private SqlConnection sqlConnection;
         private List<string> plates;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             sqlConnection = new SqlConnection(@"Server=.\SQLEXPRESS;Integrated security=SSPI;database=master");
@@ -78,7 +78,7 @@ namespace License_Plate_Generator
             sqlConnection.Close();
 
 
-
+            //Прозрачный фон у label'ов для PictureBox'a
             Symbol1.Parent = PlatePictureBox;
             Symbol2.Parent = PlatePictureBox;
             Symbol3.Parent = PlatePictureBox;
@@ -86,6 +86,8 @@ namespace License_Plate_Generator
             Number1.Parent = PlatePictureBox;
             Number2.Parent = PlatePictureBox;
             Number3.Parent = PlatePictureBox;
+
+            PlatePictureBox.ContextMenuStrip = ContextMenuStrip;
 
 
         }

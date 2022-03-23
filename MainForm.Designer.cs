@@ -1,7 +1,7 @@
 ﻿
 namespace License_Plate_Generator
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -29,6 +29,7 @@ namespace License_Plate_Generator
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.MenuStrip = new System.Windows.Forms.MenuStrip();
             this.GenerateTSMI = new System.Windows.Forms.ToolStripMenuItem();
             this.NextTSMI = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,18 +44,26 @@ namespace License_Plate_Generator
             this.Number3 = new System.Windows.Forms.Label();
             this.Symbol2 = new System.Windows.Forms.Label();
             this.Symbol3 = new System.Windows.Forms.Label();
+            this.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.NextCMS = new System.Windows.Forms.ToolStripMenuItem();
+            this.BackCMS = new System.Windows.Forms.ToolStripMenuItem();
+            this.RandomCMS = new System.Windows.Forms.ToolStripMenuItem();
+            this.RegionComboBox = new System.Windows.Forms.ToolStripComboBox();
+            this.PlateLabel = new System.Windows.Forms.Label();
             this.MenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PlatePictureBox)).BeginInit();
+            this.ContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // MenuStrip
             // 
             this.MenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.GenerateTSMI});
+            this.GenerateTSMI,
+            this.RegionComboBox});
             this.MenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip.Name = "MenuStrip";
-            this.MenuStrip.Size = new System.Drawing.Size(782, 30);
+            this.MenuStrip.Size = new System.Drawing.Size(782, 32);
             this.MenuStrip.TabIndex = 0;
             this.MenuStrip.Text = "Меню";
             // 
@@ -65,7 +74,7 @@ namespace License_Plate_Generator
             this.BackTSMI,
             this.RandomTSMI});
             this.GenerateTSMI.Name = "GenerateTSMI";
-            this.GenerateTSMI.Size = new System.Drawing.Size(129, 24);
+            this.GenerateTSMI.Size = new System.Drawing.Size(129, 28);
             this.GenerateTSMI.Text = "Сгенерировать";
             // 
             // NextTSMI
@@ -96,9 +105,9 @@ namespace License_Plate_Generator
             // 
             this.PlatePictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PlatePictureBox.Image = global::License_Plate_Generator.Properties.Resources.sample;
-            this.PlatePictureBox.Location = new System.Drawing.Point(0, 30);
+            this.PlatePictureBox.Location = new System.Drawing.Point(0, 32);
             this.PlatePictureBox.Name = "PlatePictureBox";
-            this.PlatePictureBox.Size = new System.Drawing.Size(782, 521);
+            this.PlatePictureBox.Size = new System.Drawing.Size(782, 519);
             this.PlatePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.PlatePictureBox.TabIndex = 1;
             this.PlatePictureBox.TabStop = false;
@@ -197,11 +206,153 @@ namespace License_Plate_Generator
             this.Symbol3.TabIndex = 8;
             this.Symbol3.Text = "C";
             // 
-            // Form1
+            // ContextMenuStrip
+            // 
+            this.ContextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.ContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.NextCMS,
+            this.BackCMS,
+            this.RandomCMS});
+            this.ContextMenuStrip.Name = "ContextMenuStrip";
+            this.ContextMenuStrip.Size = new System.Drawing.Size(221, 76);
+            this.ContextMenuStrip.Text = "Сгенерировать";
+            // 
+            // NextCMS
+            // 
+            this.NextCMS.Name = "NextCMS";
+            this.NextCMS.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.NextCMS.Size = new System.Drawing.Size(220, 24);
+            this.NextCMS.Text = "Следующий";
+            // 
+            // BackCMS
+            // 
+            this.BackCMS.Name = "BackCMS";
+            this.BackCMS.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
+            this.BackCMS.Size = new System.Drawing.Size(220, 24);
+            this.BackCMS.Text = "Предыдущий";
+            // 
+            // RandomCMS
+            // 
+            this.RandomCMS.Name = "RandomCMS";
+            this.RandomCMS.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.RandomCMS.Size = new System.Drawing.Size(220, 24);
+            this.RandomCMS.Text = "Рандомный";
+            // 
+            // RegionComboBox
+            // 
+            this.RegionComboBox.Items.AddRange(new object[] {
+            "01 (Республика Адыгея)",
+            "02 (Республика Башкортостан)",
+            "03 (Республика Бурятия)",
+            "04 (Республика Алтай)",
+            "05 (Республика Дагестан)",
+            "06 (Республика Ингушетия)",
+            "07 (Кабардино-Балкарская Республика)",
+            "08 (Республика Калмыкия)",
+            "09 (Карачаево-Черкесская Республика)",
+            "10 (Республика Карелия)",
+            "11 (Республика Коми)",
+            "12 (Республика Марий Эл)",
+            "13 (Республика Мордовия)",
+            "14 (Республика Саха-Якутия)",
+            "15 (Республика Северная Осетия-Алания)",
+            "16 (Республика Татарстан)",
+            "17 (Республика Тыва)",
+            "18 (Удмуртская Республика)",
+            "19 (Республика Хакасия)",
+            "20 (Республика Чечня)",
+            "21 (Чувашская Республика — Чувашия)",
+            "22 (Алтайский край)",
+            "23 (Краснодарский край)",
+            "24 (Красноярский край)",
+            "25 (Приморский край)",
+            "26 (Ставропольский край)",
+            "27 (Хабаровский край)",
+            "28 (Амурская область)",
+            "29 (Архангельская область)",
+            "30 (Астраханская область)",
+            "31 (Белгородская область)",
+            "32 (Брянская область)",
+            "33 (Владимирская область)",
+            "34 (Волгоградская область)",
+            "35 (Вологодская область)",
+            "36 (Воронежская область)",
+            "37 (Ивановская область)",
+            "38 (Иркутская область)",
+            "39 (Калининградская область)",
+            "40 (Калужская область)",
+            "41 (Камчатская область)",
+            "42 (Кемеровская область)",
+            "43 (Кировская область)",
+            "44 (Костромская область)",
+            "45 (Курганская область)",
+            "46 (Курская область)",
+            "47 (Ленинградская область)",
+            "48 (Липецкая область)",
+            "49 (Магаданская область)",
+            "50 (Московская область)",
+            "51 (Мурманская область)",
+            "52 (Нижегородская область)",
+            "53 (Новгородская область)",
+            "54 (Новосибирская область)",
+            "55 (Омская область)",
+            "56 (Оренбургская область)",
+            "57 (Орловская область)",
+            "58 (Пензенская область)",
+            "59 (Пермский край)",
+            "60 (Псковская область)",
+            "61 (Ростовская область)",
+            "62 (Рязанская область)",
+            "63 (Самарская область)",
+            "64 (Саратовская область)",
+            "65 (Сахалинская область)",
+            "66 (Свердловская область)",
+            "67 (Смоленская область)",
+            "68 (Тамбовская область)",
+            "69 (Тверская область)",
+            "70 (Томская область)",
+            "71 (Тульская область)",
+            "72 (Тюменская область)",
+            "73 (Ульяновская область)",
+            "74 (Челябинская область)",
+            "75 (Читинская область)",
+            "76 (Ярославская область)",
+            "77 (Москва)",
+            "78 (Санкт-Петербург)",
+            "79 (Еврейская авт. область)",
+            "80 (Агинский Бурятский авт. округ)",
+            "81 (Коми-Пермяцкий авт. округ)",
+            "82 (Корякский авт. округ)",
+            "83 (Ненецкий авт. округ)",
+            "84 (Таймырский авт. округ)",
+            "85 (Усть-Ордынский Бурятский авт. округ)",
+            "86 (Ханты-Мансийский авт. округ - Югра)",
+            "87 (Чукотский авт. округ)",
+            "88 (Эвенкийский авт. округ)",
+            "89 (Ямало-Ненецкий авт. округ)",
+            "90 (Московская область)",
+            "95 (Чеченская республика)",
+            "98 (Санкт-Петербург)",
+            "99 (Москва)"});
+            this.RegionComboBox.Name = "RegionComboBox";
+            this.RegionComboBox.Size = new System.Drawing.Size(250, 28);
+            // 
+            // PlateLabel
+            // 
+            this.PlateLabel.AutoSize = true;
+            this.PlateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 70.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.PlateLabel.Location = new System.Drawing.Point(31, 77);
+            this.PlateLabel.Name = "PlateLabel";
+            this.PlateLabel.Size = new System.Drawing.Size(498, 134);
+            this.PlateLabel.TabIndex = 9;
+            this.PlateLabel.Text = "A123BC";
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(782, 551);
+            this.Controls.Add(this.PlateLabel);
             this.Controls.Add(this.Symbol3);
             this.Controls.Add(this.Symbol2);
             this.Controls.Add(this.Number3);
@@ -212,12 +363,13 @@ namespace License_Plate_Generator
             this.Controls.Add(this.PlatePictureBox);
             this.Controls.Add(this.MenuStrip);
             this.MainMenuStrip = this.MenuStrip;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Генератор Номерных Знаков - LPG";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.MenuStrip.ResumeLayout(false);
             this.MenuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PlatePictureBox)).EndInit();
+            this.ContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -239,6 +391,12 @@ namespace License_Plate_Generator
         private System.Windows.Forms.Label Number3;
         private System.Windows.Forms.Label Symbol2;
         private System.Windows.Forms.Label Symbol3;
+        private System.Windows.Forms.ContextMenuStrip ContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem NextCMS;
+        private System.Windows.Forms.ToolStripMenuItem BackCMS;
+        private System.Windows.Forms.ToolStripMenuItem RandomCMS;
+        private System.Windows.Forms.ToolStripComboBox RegionComboBox;
+        private System.Windows.Forms.Label PlateLabel;
     }
 }
 
