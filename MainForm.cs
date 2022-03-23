@@ -18,8 +18,11 @@ namespace License_Plate_Generator
             plates = new List<string>();
         }
 
+        Random rnd = new Random();
+
         private void Form1_Load(object sender, EventArgs e)
         {
+
             bool tableIsExist = false;
             SqlDataReader reader = null;
 
@@ -101,21 +104,6 @@ namespace License_Plate_Generator
             }
         }
 
-        private void NextTSMI_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void BackTSMI_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void RandomTSMI_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
             PlatePictureBox.Width = Width - 18;
@@ -148,7 +136,66 @@ namespace License_Plate_Generator
 
         private void RegionComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //Миша не трогай, там не совпадает в конце
+            if (RegionComboBox.SelectedIndex.Equals(90))
+            {
+                RegionLabel.Text = "95";
+                return;
+            }
+            if (RegionComboBox.SelectedIndex.Equals(91))
+            {
+                RegionLabel.Text = "98";
+                return;
+            }
+            if (RegionComboBox.SelectedIndex.Equals(92))
+            {
+                RegionLabel.Text = "99";
+                return;
+            }
+
             RegionLabel.Text = $"{RegionComboBox.SelectedIndex + 1}";
+        }
+
+        private void RandomButton_Click(object sender, EventArgs e)
+        {
+            Plate plate = new Plate();
+            for (int i = 0; i <= 2; i++)
+            {
+                plate.Symbols[i] = plate.SymbolSet[rnd.Next(1, 11)];
+                plate.Numbers[i] = Convert.ToChar(rnd.Next(1, 9).ToString());
+            }
+
+            //Без региона
+            plates.Add(plate.ToString());
+
+            PlateLabel.Text = plate.ToString();
+        }
+
+        private void PreviousButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int index = plates.IndexOf(PlateLabel.Text);
+                PlateLabel.Text = plates[index - 1];
+
+            }
+            catch
+            {
+                MessageBox.Show("Достигнут первый элемент коллекции", "Ошибка");
+            }
+        }
+
+        private void NextButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int index = plates.IndexOf(PlateLabel.Text);
+                PlateLabel.Text = plates[index + 1];
+            }
+            catch
+            {
+                MessageBox.Show("Достигнут последний элемент коллекции", "Ошибка");
+            }
         }
     }
 }

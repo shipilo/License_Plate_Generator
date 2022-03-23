@@ -22,6 +22,10 @@ namespace License_Plate_Generator
             get { return numbers; }
             set { numbers = value; }
         }
+        public char[] SymbolSet
+        {
+            get { return symbolSet; }
+        }
 
 
         public override string ToString()

@@ -31,10 +31,6 @@ namespace License_Plate_Generator
         {
             this.components = new System.ComponentModel.Container();
             this.MenuStrip = new System.Windows.Forms.MenuStrip();
-            this.GenerateTSMI = new System.Windows.Forms.ToolStripMenuItem();
-            this.NextTSMI = new System.Windows.Forms.ToolStripMenuItem();
-            this.BackTSMI = new System.Windows.Forms.ToolStripMenuItem();
-            this.RandomTSMI = new System.Windows.Forms.ToolStripMenuItem();
             this.RegionComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.PlatePictureBox = new System.Windows.Forms.PictureBox();
             this.ColorButton = new System.Windows.Forms.Button();
@@ -59,47 +55,12 @@ namespace License_Plate_Generator
             // 
             this.MenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.GenerateTSMI,
             this.RegionComboBox});
             this.MenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip.Name = "MenuStrip";
             this.MenuStrip.Size = new System.Drawing.Size(800, 32);
             this.MenuStrip.TabIndex = 0;
             this.MenuStrip.Text = "Меню";
-            // 
-            // GenerateTSMI
-            // 
-            this.GenerateTSMI.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.NextTSMI,
-            this.BackTSMI,
-            this.RandomTSMI});
-            this.GenerateTSMI.Name = "GenerateTSMI";
-            this.GenerateTSMI.Size = new System.Drawing.Size(129, 28);
-            this.GenerateTSMI.Text = "Сгенерировать";
-            // 
-            // NextTSMI
-            // 
-            this.NextTSMI.Name = "NextTSMI";
-            this.NextTSMI.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.NextTSMI.Size = new System.Drawing.Size(234, 26);
-            this.NextTSMI.Text = "Следующий";
-            this.NextTSMI.Click += new System.EventHandler(this.NextTSMI_Click);
-            // 
-            // BackTSMI
-            // 
-            this.BackTSMI.Name = "BackTSMI";
-            this.BackTSMI.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.BackTSMI.Size = new System.Drawing.Size(234, 26);
-            this.BackTSMI.Text = "Предыдущий";
-            this.BackTSMI.Click += new System.EventHandler(this.BackTSMI_Click);
-            // 
-            // RandomTSMI
-            // 
-            this.RandomTSMI.Name = "RandomTSMI";
-            this.RandomTSMI.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.RandomTSMI.Size = new System.Drawing.Size(234, 26);
-            this.RandomTSMI.Text = "Рандомный";
-            this.RandomTSMI.Click += new System.EventHandler(this.RandomTSMI_Click);
             // 
             // RegionComboBox
             // 
@@ -266,7 +227,7 @@ namespace License_Plate_Generator
             this.PlateLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.PlateLabel.AutoSize = true;
             this.PlateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 70.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.PlateLabel.Location = new System.Drawing.Point(61, 225);
+            this.PlateLabel.Location = new System.Drawing.Point(25, 225);
             this.PlateLabel.Name = "PlateLabel";
             this.PlateLabel.Size = new System.Drawing.Size(490, 132);
             this.PlateLabel.TabIndex = 9;
@@ -312,6 +273,7 @@ namespace License_Plate_Generator
             this.RandomButton.TabIndex = 5;
             this.RandomButton.Text = "Случайный";
             this.RandomButton.UseVisualStyleBackColor = true;
+            this.RandomButton.Click += new System.EventHandler(this.RandomButton_Click);
             // 
             // PreviousButton
             // 
@@ -322,6 +284,7 @@ namespace License_Plate_Generator
             this.PreviousButton.TabIndex = 4;
             this.PreviousButton.Text = "Предыдущий";
             this.PreviousButton.UseVisualStyleBackColor = true;
+            this.PreviousButton.Click += new System.EventHandler(this.PreviousButton_Click);
             // 
             // NextButton
             // 
@@ -332,6 +295,7 @@ namespace License_Plate_Generator
             this.NextButton.TabIndex = 3;
             this.NextButton.Text = "Следующий";
             this.NextButton.UseVisualStyleBackColor = true;
+            this.NextButton.Click += new System.EventHandler(this.NextButton_Click);
             // 
             // MainForm
             // 
@@ -366,10 +330,6 @@ namespace License_Plate_Generator
         #endregion
 
         private System.Windows.Forms.MenuStrip MenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem GenerateTSMI;
-        private System.Windows.Forms.ToolStripMenuItem NextTSMI;
-        private System.Windows.Forms.ToolStripMenuItem BackTSMI;
-        private System.Windows.Forms.ToolStripMenuItem RandomTSMI;
         private System.Windows.Forms.PictureBox PlatePictureBox;
         private System.Windows.Forms.Button ColorButton;
         private System.Windows.Forms.ColorDialog colorDialog;
