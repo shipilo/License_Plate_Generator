@@ -79,13 +79,8 @@ namespace License_Plate_Generator
 
 
             //Прозрачный фон у label'ов для PictureBox'a
-            Symbol1.Parent = PlatePictureBox;
-            Symbol2.Parent = PlatePictureBox;
-            Symbol3.Parent = PlatePictureBox;
-
-            Number1.Parent = PlatePictureBox;
-            Number2.Parent = PlatePictureBox;
-            Number3.Parent = PlatePictureBox;
+            PlateLabel.Parent = PlatePictureBox;
+            RegionLabel.Parent = PlatePictureBox;
 
             PlatePictureBox.ContextMenuStrip = ContextMenuStrip;
 
