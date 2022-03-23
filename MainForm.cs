@@ -85,7 +85,7 @@ namespace License_Plate_Generator
             PlateLabel.Parent = PlatePictureBox;
             RegionLabel.Parent = PlatePictureBox;
             RegionComboBox.SelectedIndex = Properties.Settings.Default.SelectedRegion;
-            RegionLabel.Text = $"{RegionComboBox.SelectedIndex + 1}";
+            RegionComboBox_SelectedIndexChanged(this, EventArgs.Empty);
             Size = Properties.Settings.Default.WindowSize;
 
             PlatePictureBox.ContextMenuStrip = ContextMenuStrip;
@@ -106,9 +106,9 @@ namespace License_Plate_Generator
 
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
-            PlatePictureBox.Width = Width - 18;
+            PlatePictureBox.Width = (Width - 18) * 11/12;
             PlatePictureBox.Height = PlatePictureBox.Width / 5;
-            PlatePictureBox.Location = new Point(0, (Height - PlatePictureBox.Height)/2);
+            PlatePictureBox.Location = new Point(PlatePictureBox.Width/22, ((Height - 18) - TableButtons.Height - PlatePictureBox.Height)/2);
 
             PlateLabel.Height = PlatePictureBox.Height;
             PlateLabel.Font = new Font(FontFamily.GenericSansSerif, PlatePictureBox.Height * 3/4, GraphicsUnit.Pixel);
