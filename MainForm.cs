@@ -81,10 +81,9 @@ namespace License_Plate_Generator
             //Прозрачный фон у label'ов для PictureBox'a
             PlateLabel.Parent = PlatePictureBox;
             RegionLabel.Parent = PlatePictureBox;
-            /*System.Drawing.Text.PrivateFontCollection numbersFont = new System.Drawing.Text.PrivateFontCollection();
-            numbersFont.AddFontFile("../../Resources/RoadNumbers2.0.ttf");
-            PlateLabel.Font = new Font(numbersFont.Families[0], 72);
-            RegionLabel.Font*/
+            RegionComboBox.SelectedIndex = Properties.Settings.Default.SelectedRegion;
+            RegionLabel.Text = $"{RegionComboBox.SelectedIndex + 1}";
+            Size = Properties.Settings.Default.WindowSize;
 
             PlatePictureBox.ContextMenuStrip = ContextMenuStrip;
 
@@ -130,6 +129,26 @@ namespace License_Plate_Generator
             RegionLabel.Height = PlatePictureBox.Height * 3 / 4;
             RegionLabel.Font = new Font(FontFamily.GenericSansSerif, PlatePictureBox.Height * 1 / 2, GraphicsUnit.Pixel);
             RegionLabel.Location = new Point(PlatePictureBox.Width * 7 / 8 - RegionLabel.Width/2, (PlatePictureBox.Height * 2 / 3 - RegionLabel.Height)/2);
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.SelectedRegion = RegionComboBox.SelectedIndex;
+            if (WindowState == FormWindowState.Normal)
+            {
+                Properties.Settings.Default.WindowSize = Size;
+            }
+            else
+            {
+                Properties.Settings.Default.WindowLocation = RestoreBounds.Location;
+                Properties.Settings.Default.WindowSize = RestoreBounds.Size;
+            }
+            Properties.Settings.Default.Save();
+        }
+
+        private void RegionComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RegionLabel.Text = $"{RegionComboBox.SelectedIndex + 1}";
         }
     }
 }

@@ -46,9 +46,9 @@ namespace License_Plate_Generator
             this.PlateLabel = new System.Windows.Forms.Label();
             this.RegionLabel = new System.Windows.Forms.Label();
             this.TableButtons = new System.Windows.Forms.TableLayoutPanel();
-            this.NextButton = new System.Windows.Forms.Button();
-            this.PreviousButton = new System.Windows.Forms.Button();
             this.RandomButton = new System.Windows.Forms.Button();
+            this.PreviousButton = new System.Windows.Forms.Button();
+            this.NextButton = new System.Windows.Forms.Button();
             this.MenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PlatePictureBox)).BeginInit();
             this.ContextMenuStrip.SuspendLayout();
@@ -63,7 +63,7 @@ namespace License_Plate_Generator
             this.RegionComboBox});
             this.MenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip.Name = "MenuStrip";
-            this.MenuStrip.Size = new System.Drawing.Size(782, 32);
+            this.MenuStrip.Size = new System.Drawing.Size(800, 32);
             this.MenuStrip.TabIndex = 0;
             this.MenuStrip.Text = "Меню";
             // 
@@ -198,8 +198,8 @@ namespace License_Plate_Generator
             "98 (Санкт-Петербург)",
             "99 (Москва)"});
             this.RegionComboBox.Name = "RegionComboBox";
-            this.RegionComboBox.SelectedIndex = 15;
             this.RegionComboBox.Size = new System.Drawing.Size(250, 28);
+            this.RegionComboBox.SelectedIndexChanged += new System.EventHandler(this.RegionComboBox_SelectedIndexChanged);
             // 
             // PlatePictureBox
             // 
@@ -218,7 +218,7 @@ namespace License_Plate_Generator
             this.ColorButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ColorButton.FlatAppearance.BorderSize = 0;
             this.ColorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ColorButton.Location = new System.Drawing.Point(704, 4);
+            this.ColorButton.Location = new System.Drawing.Point(722, 4);
             this.ColorButton.Name = "ColorButton";
             this.ColorButton.Size = new System.Drawing.Size(75, 75);
             this.ColorButton.TabIndex = 2;
@@ -266,7 +266,7 @@ namespace License_Plate_Generator
             this.PlateLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.PlateLabel.AutoSize = true;
             this.PlateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 70.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.PlateLabel.Location = new System.Drawing.Point(58, 224);
+            this.PlateLabel.Location = new System.Drawing.Point(61, 225);
             this.PlateLabel.Name = "PlateLabel";
             this.PlateLabel.Size = new System.Drawing.Size(490, 132);
             this.PlateLabel.TabIndex = 9;
@@ -278,11 +278,11 @@ namespace License_Plate_Generator
             this.RegionLabel.AutoSize = true;
             this.RegionLabel.BackColor = System.Drawing.Color.Transparent;
             this.RegionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 45F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.RegionLabel.Location = new System.Drawing.Point(616, 224);
+            this.RegionLabel.Location = new System.Drawing.Point(627, 225);
             this.RegionLabel.Name = "RegionLabel";
             this.RegionLabel.Size = new System.Drawing.Size(121, 85);
             this.RegionLabel.TabIndex = 10;
-            this.RegionLabel.Text = $"{this.RegionComboBox.SelectedIndex + 1}";
+            this.RegionLabel.Text = "11";
             // 
             // TableButtons
             // 
@@ -296,58 +296,63 @@ namespace License_Plate_Generator
             this.TableButtons.Controls.Add(this.ColorButton, 3, 0);
             this.TableButtons.Controls.Add(this.NextButton, 2, 0);
             this.TableButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.TableButtons.Location = new System.Drawing.Point(0, 471);
+            this.TableButtons.Location = new System.Drawing.Point(0, 518);
             this.TableButtons.Name = "TableButtons";
             this.TableButtons.RowCount = 1;
             this.TableButtons.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.TableButtons.Size = new System.Drawing.Size(782, 82);
+            this.TableButtons.Size = new System.Drawing.Size(800, 82);
             this.TableButtons.TabIndex = 11;
             // 
-            // NextButton
+            // RandomButton
             // 
-            this.NextButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.NextButton.Location = new System.Drawing.Point(469, 3);
-            this.NextButton.Name = "NextButton";
-            this.NextButton.Size = new System.Drawing.Size(227, 76);
-            this.NextButton.TabIndex = 3;
-            this.NextButton.Text = "Следующий";
-            this.NextButton.UseVisualStyleBackColor = true;
+            this.RandomButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RandomButton.Location = new System.Drawing.Point(242, 3);
+            this.RandomButton.Name = "RandomButton";
+            this.RandomButton.Size = new System.Drawing.Size(233, 76);
+            this.RandomButton.TabIndex = 5;
+            this.RandomButton.Text = "Случайный";
+            this.RandomButton.UseVisualStyleBackColor = true;
             // 
             // PreviousButton
             // 
             this.PreviousButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PreviousButton.Location = new System.Drawing.Point(3, 3);
             this.PreviousButton.Name = "PreviousButton";
-            this.PreviousButton.Size = new System.Drawing.Size(227, 76);
+            this.PreviousButton.Size = new System.Drawing.Size(233, 76);
             this.PreviousButton.TabIndex = 4;
             this.PreviousButton.Text = "Предыдущий";
             this.PreviousButton.UseVisualStyleBackColor = true;
             // 
-            // RandomButton
+            // NextButton
             // 
-            this.RandomButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RandomButton.Location = new System.Drawing.Point(236, 3);
-            this.RandomButton.Name = "RandomButton";
-            this.RandomButton.Size = new System.Drawing.Size(227, 76);
-            this.RandomButton.TabIndex = 5;
-            this.RandomButton.Text = "Случайный";
-            this.RandomButton.UseVisualStyleBackColor = true;
+            this.NextButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.NextButton.Location = new System.Drawing.Point(481, 3);
+            this.NextButton.Name = "NextButton";
+            this.NextButton.Size = new System.Drawing.Size(233, 76);
+            this.NextButton.TabIndex = 3;
+            this.NextButton.Text = "Следующий";
+            this.NextButton.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(782, 553);
+            this.BackColor = global::License_Plate_Generator.Properties.Settings.Default.BackColor;
+            this.ClientSize = new System.Drawing.Size(800, 600);
             this.Controls.Add(this.TableButtons);
             this.Controls.Add(this.RegionLabel);
             this.Controls.Add(this.PlateLabel);
             this.Controls.Add(this.PlatePictureBox);
             this.Controls.Add(this.MenuStrip);
+            this.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", global::License_Plate_Generator.Properties.Settings.Default, "BackColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.DataBindings.Add(new System.Windows.Forms.Binding("Location", global::License_Plate_Generator.Properties.Settings.Default, "WindowLocation", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.Location = global::License_Plate_Generator.Properties.Settings.Default.WindowLocation;
             this.MainMenuStrip = this.MenuStrip;
             this.Name = "MainForm";
             this.Text = "Генератор Номерных Знаков - LPG";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.ResizeEnd += new System.EventHandler(this.MainForm_SizeChanged);
+            this.ClientSizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
             this.MenuStrip.ResumeLayout(false);
             this.MenuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PlatePictureBox)).EndInit();
