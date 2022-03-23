@@ -81,10 +81,14 @@ namespace License_Plate_Generator
             //Прозрачный фон у label'ов для PictureBox'a
             PlateLabel.Parent = PlatePictureBox;
             RegionLabel.Parent = PlatePictureBox;
+            /*System.Drawing.Text.PrivateFontCollection numbersFont = new System.Drawing.Text.PrivateFontCollection();
+            numbersFont.AddFontFile("../../Resources/RoadNumbers2.0.ttf");
+            PlateLabel.Font = new Font(numbersFont.Families[0], 72);
+            RegionLabel.Font*/
 
             PlatePictureBox.ContextMenuStrip = ContextMenuStrip;
 
-
+            MainForm_SizeChanged(this, EventArgs.Empty);
         }
 
         private void ColorButton_Click(object sender, EventArgs e)
@@ -93,6 +97,8 @@ namespace License_Plate_Generator
             {
                 PlatePictureBox.BackColor = colorDialog.Color;
                 ColorButton.BackColor = colorDialog.Color;
+                TableButtons.BackColor = colorDialog.Color;
+                BackColor = colorDialog.Color;
             }
         }
 
@@ -109,6 +115,21 @@ namespace License_Plate_Generator
         private void RandomTSMI_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void MainForm_SizeChanged(object sender, EventArgs e)
+        {
+            PlatePictureBox.Width = Width - 18;
+            PlatePictureBox.Height = PlatePictureBox.Width / 5;
+            PlatePictureBox.Location = new Point(0, (Height - PlatePictureBox.Height)/2);
+
+            PlateLabel.Height = PlatePictureBox.Height;
+            PlateLabel.Font = new Font(FontFamily.GenericSansSerif, PlatePictureBox.Height * 3/4, GraphicsUnit.Pixel);
+            PlateLabel.Location = new Point((PlatePictureBox.Width * 3 / 4 - PlateLabel.Width) / 2, (PlatePictureBox.Height - PlateLabel.Height)/2);
+
+            RegionLabel.Height = PlatePictureBox.Height * 3 / 4;
+            RegionLabel.Font = new Font(FontFamily.GenericSansSerif, PlatePictureBox.Height * 1 / 2, GraphicsUnit.Pixel);
+            RegionLabel.Location = new Point(PlatePictureBox.Width * 7 / 8 - RegionLabel.Width/2, (PlatePictureBox.Height * 2 / 3 - RegionLabel.Height)/2);
         }
     }
 }
