@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -8,82 +9,48 @@ namespace License_Plate_Generator
 {
     public partial class MainForm : Form
     {
-        private SqlConnection sqlConnection;
-        private List<string> plates;
+        private SQLiteConnection sqlConnection;
+        private SQLiteCommand sqlCommand;
+        private List<Plate> plates;
+        private int regionSelected;
 
         public MainForm()
         {
             InitializeComponent();
-            sqlConnection = new SqlConnection(@"Server=.\SQLEXPRESS;Integrated security=SSPI;database=master");
-            plates = new List<string>();
+            sqlConnection = new SQLiteConnection("Data Source=../../data.db");
+            sqlCommand = new SQLiteCommand(sqlConnection);
+            plates = new List<Plate>();
         }
 
         Random rnd = new Random();
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
-            bool tableIsExist = false;
-            SqlDataReader reader = null;
-
             sqlConnection.Open();
-
-            // проверка существования таблицы LPG_history
-            SqlCommand sqlCommand1 = new SqlCommand("SELECT CONVERT(BIT, COUNT(*)) FROM sys.tables WHERE name = N'LPG_history'", sqlConnection);
+            sqlCommand.CommandText = "SELECT * FROM LPG_history";
             try
             {
-                reader = sqlCommand1.ExecuteReader();
-                reader.Read();
-                tableIsExist = Convert.ToBoolean(reader[0]);
+                using (SQLiteDataReader reader = sqlCommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        plates.Add(new Plate(reader["numbers"].ToString(), reader["symbols"].ToString(), (int)reader["region"]));
+                    }
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            if (reader != null) reader.Close();
-
-            // если таблица не существует, то создаем ее
-            if (!tableIsExist)
-            {
-                SqlCommand sqlCommand2 = new SqlCommand(
-                    "CREATE TABLE LPG_history" +
-                    "(id INT PRIMARY KEY IDENTITY (1,1) NOT NULL," +
-                    "Plate NVARCHAR(30))", sqlConnection);
-                try
-                {
-                    sqlCommand2.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                MessageBox.Show(ex.ToString(), Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
-            // если существует, то загружаем оттуда данные
-            else
-            {
-                SqlCommand sqlCommand3 = new SqlCommand("SELECT * FROM LPG_history", sqlConnection);
-                try
-                {
-                    reader = sqlCommand3.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        plates.Add(reader["Plate"].ToString());
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-
-            if (reader != null) reader.Close();
             sqlConnection.Close();
 
 
             //Прозрачный фон у label'ов для PictureBox'a
             PlateLabel.Parent = PlatePictureBox;
             RegionLabel.Parent = PlatePictureBox;
+
+
             RegionComboBox.SelectedIndex = Properties.Settings.Default.SelectedRegion;
             RegionComboBox_SelectedIndexChanged(this, EventArgs.Empty);
             Size = Properties.Settings.Default.WindowSize;
@@ -132,61 +99,78 @@ namespace License_Plate_Generator
                 Properties.Settings.Default.WindowSize = RestoreBounds.Size;
             }
             Properties.Settings.Default.Save();
+
+            sqlConnection.Open();
+            sqlCommand.CommandText = "begin";
+            sqlCommand.ExecuteNonQuery();
+            sqlCommand.CommandText = "SELECT COUNT(Id) FROM LPG_history";
+            for(int i=(int)(long)sqlCommand.ExecuteScalar(); i < plates.Count; i++)
+            {
+                sqlCommand.CommandText = $"INSERT INTO LPG_history (numbers, symbols, region) " +
+                                         $"VALUES ('{new string(plates[i].Numbers)}', '{new string(plates[i].Symbols)}', {plates[i].Region})";
+                sqlCommand.ExecuteNonQuery();
+            }
+            sqlCommand.CommandText = "end";
+            sqlCommand.ExecuteNonQuery();
         }
 
         private void RegionComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //Миша не трогай, там не совпадает в конце
-            if (RegionComboBox.SelectedIndex.Equals(90))
+            switch (RegionComboBox.SelectedIndex)
             {
-                RegionLabel.Text = "95";
-                return;
-            }
-            if (RegionComboBox.SelectedIndex.Equals(91))
-            {
-                RegionLabel.Text = "98";
-                return;
-            }
-            if (RegionComboBox.SelectedIndex.Equals(92))
-            {
-                RegionLabel.Text = "99";
-                return;
+                case 90:
+                    regionSelected = 95;
+                    break;
+                case 91:
+                    regionSelected = 98;
+                    break;
+                case 92:
+                    regionSelected = 99;
+                    break;
+                default:
+                    regionSelected = RegionComboBox.SelectedIndex + 1;
+                    break;
             }
 
-            RegionLabel.Text = $"{RegionComboBox.SelectedIndex + 1}";
+            RegionLabel.Text = $"{regionSelected}";
         }
 
         private void RandomButton_Click(object sender, EventArgs e)
         {
             Plate plate = new Plate();
-            for (int i = 0; i <= 2; i++)
+            do
             {
-                plate.Symbols[i] = plate.SymbolSet[rnd.Next(1, 11)];
-                plate.Numbers[i] = Convert.ToChar(rnd.Next(1, 9).ToString());
-            }
+                for (int i = 0; i <= 2; i++)
+                {
+                    plate.Symbols[i] = Plate.symbolSet[rnd.Next(1, 11)];
+                    plate.Numbers[i] = Convert.ToChar(rnd.Next(1, 9).ToString());
+                }
+                plate.Region = regionSelected; 
+            } while (plates.Contains(plate));
 
-            //Без региона
-            plates.Add(plate.ToString());
+            plates.Add(plate);
 
             PlateLabel.Text = plate.ToString();
         }
 
         private void PreviousButton_Click(object sender, EventArgs e)
         {
+            /* не то ты Саня сделал, почитай задание
             try
             {
                 int index = plates.IndexOf(PlateLabel.Text);
                 PlateLabel.Text = plates[index - 1];
-
             }
             catch
             {
                 MessageBox.Show("Достигнут первый элемент коллекции", "Ошибка");
             }
+            */
         }
 
         private void NextButton_Click(object sender, EventArgs e)
         {
+            /*
             try
             {
                 int index = plates.IndexOf(PlateLabel.Text);
@@ -196,6 +180,7 @@ namespace License_Plate_Generator
             {
                 MessageBox.Show("Достигнут последний элемент коллекции", "Ошибка");
             }
+            */
         }
     }
 }

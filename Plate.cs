@@ -8,9 +8,10 @@ namespace License_Plate_Generator
 {
     public class Plate
     {
-        private readonly char[] symbolSet = {'а','в','е','к','м','н','о','р','с','т','у','х' };
-        private char[] numbers = new char[3];
-        private char[] symbols = new char[3];
+        public static char[] symbolSet;
+        private char[] numbers;
+        private char[] symbols;
+        private int region;
 
         public char[] Symbols
         {
@@ -22,16 +23,41 @@ namespace License_Plate_Generator
             get { return numbers; }
             set { numbers = value; }
         }
-        public char[] SymbolSet
+        public int Region
         {
-            get { return symbolSet; }
+            get { return region; }
+            set { region = value; }
         }
-
+        public string FullNumber
+        {
+            get { return ToString() + $"{region}"; }
+        }
 
         public override string ToString()
         {
             //пример: "A000AA"
-            return $"{symbols[0]}{numbers[0]}{numbers[1]}{numbers[2]}{symbols[1]}{symbols[2]}"; 
+            return $"{symbols[0]}{numbers[0]}{numbers[1]}{numbers[2]}{symbols[1]}{symbols[2]}".ToUpper(); 
+        }
+        public override bool Equals(object obj)
+        {
+            return obj is Plate plate && FullNumber.Equals(plate.FullNumber);
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public Plate()
+        {
+            symbolSet = new char[]{ 'а', 'в', 'е', 'к', 'м', 'н', 'о', 'р', 'с', 'т', 'у', 'х' };
+            numbers = new char[3];
+            symbols = new char[3];
+    }
+        public Plate(string numbers, string symbols, int region) : this()
+        {
+            this.numbers = numbers.ToCharArray();
+            this.symbols = symbols.ToCharArray();
+            this.region = region;
         }
 
         public void IncreaseNumbers()
