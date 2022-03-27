@@ -41,14 +41,9 @@ namespace License_Plate_Generator
             this.RandomCMS = new System.Windows.Forms.ToolStripMenuItem();
             this.PlateLabel = new System.Windows.Forms.Label();
             this.RegionLabel = new System.Windows.Forms.Label();
-            this.TableButtons = new System.Windows.Forms.TableLayoutPanel();
-            this.RandomButton = new System.Windows.Forms.Button();
-            this.PreviousButton = new System.Windows.Forms.Button();
-            this.NextButton = new System.Windows.Forms.Button();
             this.MenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PlatePictureBox)).BeginInit();
             this.ContextMenuStrip.SuspendLayout();
-            this.TableButtons.SuspendLayout();
             this.SuspendLayout();
             // 
             // MenuStrip
@@ -179,7 +174,7 @@ namespace License_Plate_Generator
             this.ColorButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ColorButton.FlatAppearance.BorderSize = 0;
             this.ColorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ColorButton.Location = new System.Drawing.Point(722, 4);
+            this.ColorButton.Location = new System.Drawing.Point(725, 526);
             this.ColorButton.Name = "ColorButton";
             this.ColorButton.Size = new System.Drawing.Size(75, 75);
             this.ColorButton.TabIndex = 2;
@@ -245,65 +240,13 @@ namespace License_Plate_Generator
             this.RegionLabel.TabIndex = 10;
             this.RegionLabel.Text = "11";
             // 
-            // TableButtons
-            // 
-            this.TableButtons.ColumnCount = 4;
-            this.TableButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.TableButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
-            this.TableButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
-            this.TableButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.TableButtons.Controls.Add(this.RandomButton, 1, 0);
-            this.TableButtons.Controls.Add(this.PreviousButton, 0, 0);
-            this.TableButtons.Controls.Add(this.ColorButton, 3, 0);
-            this.TableButtons.Controls.Add(this.NextButton, 2, 0);
-            this.TableButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.TableButtons.Location = new System.Drawing.Point(0, 518);
-            this.TableButtons.Name = "TableButtons";
-            this.TableButtons.RowCount = 1;
-            this.TableButtons.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.TableButtons.Size = new System.Drawing.Size(800, 82);
-            this.TableButtons.TabIndex = 11;
-            // 
-            // RandomButton
-            // 
-            this.RandomButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RandomButton.Location = new System.Drawing.Point(242, 3);
-            this.RandomButton.Name = "RandomButton";
-            this.RandomButton.Size = new System.Drawing.Size(233, 76);
-            this.RandomButton.TabIndex = 5;
-            this.RandomButton.Text = "Случайный";
-            this.RandomButton.UseVisualStyleBackColor = true;
-            this.RandomButton.Click += new System.EventHandler(this.RandomButton_Click);
-            // 
-            // PreviousButton
-            // 
-            this.PreviousButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PreviousButton.Location = new System.Drawing.Point(3, 3);
-            this.PreviousButton.Name = "PreviousButton";
-            this.PreviousButton.Size = new System.Drawing.Size(233, 76);
-            this.PreviousButton.TabIndex = 4;
-            this.PreviousButton.Text = "Предыдущий";
-            this.PreviousButton.UseVisualStyleBackColor = true;
-            this.PreviousButton.Click += new System.EventHandler(this.PreviousButton_Click);
-            // 
-            // NextButton
-            // 
-            this.NextButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.NextButton.Location = new System.Drawing.Point(481, 3);
-            this.NextButton.Name = "NextButton";
-            this.NextButton.Size = new System.Drawing.Size(233, 76);
-            this.NextButton.TabIndex = 3;
-            this.NextButton.Text = "Следующий";
-            this.NextButton.UseVisualStyleBackColor = true;
-            this.NextButton.Click += new System.EventHandler(this.NextButton_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = global::License_Plate_Generator.Properties.Settings.Default.BackColor;
             this.ClientSize = new System.Drawing.Size(800, 600);
-            this.Controls.Add(this.TableButtons);
+            this.Controls.Add(this.ColorButton);
             this.Controls.Add(this.RegionLabel);
             this.Controls.Add(this.PlateLabel);
             this.Controls.Add(this.PlatePictureBox);
@@ -321,7 +264,6 @@ namespace License_Plate_Generator
             this.MenuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PlatePictureBox)).EndInit();
             this.ContextMenuStrip.ResumeLayout(false);
-            this.TableButtons.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -340,10 +282,6 @@ namespace License_Plate_Generator
         private System.Windows.Forms.ToolStripComboBox RegionComboBox;
         private System.Windows.Forms.Label PlateLabel;
         private System.Windows.Forms.Label RegionLabel;
-        private System.Windows.Forms.TableLayoutPanel TableButtons;
-        private System.Windows.Forms.Button RandomButton;
-        private System.Windows.Forms.Button PreviousButton;
-        private System.Windows.Forms.Button NextButton;
     }
 }
 

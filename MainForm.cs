@@ -50,7 +50,7 @@ namespace License_Plate_Generator
             PlateLabel.Parent = PlatePictureBox;
             RegionLabel.Parent = PlatePictureBox;
 
-
+            PlateLabel.Text = plates.Count != 0 ? plates[plates.Count - 1].ToString() : "";
             RegionComboBox.SelectedIndex = Properties.Settings.Default.SelectedRegion;
             RegionComboBox_SelectedIndexChanged(this, EventArgs.Empty);
             Size = Properties.Settings.Default.WindowSize;
@@ -66,7 +66,6 @@ namespace License_Plate_Generator
             {
                 PlatePictureBox.BackColor = colorDialog.Color;
                 ColorButton.BackColor = colorDialog.Color;
-                TableButtons.BackColor = colorDialog.Color;
                 BackColor = colorDialog.Color;
             }
         }
@@ -75,7 +74,7 @@ namespace License_Plate_Generator
         {
             PlatePictureBox.Width = (Width - 18) * 11/12;
             PlatePictureBox.Height = PlatePictureBox.Width / 5;
-            PlatePictureBox.Location = new Point(PlatePictureBox.Width/22, ((Height - 18) - TableButtons.Height - PlatePictureBox.Height)/2);
+            PlatePictureBox.Location = new Point(PlatePictureBox.Width/22, ((Height - 18) - PlatePictureBox.Height)/2);
 
             PlateLabel.Height = PlatePictureBox.Height;
             PlateLabel.Font = new Font(FontFamily.GenericSansSerif, PlatePictureBox.Height * 3/4, GraphicsUnit.Pixel);
