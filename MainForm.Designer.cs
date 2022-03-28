@@ -41,6 +41,10 @@ namespace License_Plate_Generator
             this.RandomCMS = new System.Windows.Forms.ToolStripMenuItem();
             this.PlateLabel = new System.Windows.Forms.Label();
             this.RegionLabel = new System.Windows.Forms.Label();
+            this.сгенерироватьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.RandomTSMI = new System.Windows.Forms.ToolStripMenuItem();
+            this.NextTSMI = new System.Windows.Forms.ToolStripMenuItem();
+            this.PreviousTSMI = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PlatePictureBox)).BeginInit();
             this.ContextMenuStrip.SuspendLayout();
@@ -50,6 +54,7 @@ namespace License_Plate_Generator
             // 
             this.MenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.сгенерироватьToolStripMenuItem,
             this.RegionComboBox});
             this.MenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip.Name = "MenuStrip";
@@ -240,6 +245,40 @@ namespace License_Plate_Generator
             this.RegionLabel.TabIndex = 10;
             this.RegionLabel.Text = "11";
             // 
+            // сгенерироватьToolStripMenuItem
+            // 
+            this.сгенерироватьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.RandomTSMI,
+            this.NextTSMI,
+            this.PreviousTSMI});
+            this.сгенерироватьToolStripMenuItem.Name = "сгенерироватьToolStripMenuItem";
+            this.сгенерироватьToolStripMenuItem.Size = new System.Drawing.Size(129, 28);
+            this.сгенерироватьToolStripMenuItem.Text = "Сгенерировать";
+            // 
+            // RandomTSMI
+            // 
+            this.RandomTSMI.Name = "RandomTSMI";
+            this.RandomTSMI.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.RandomTSMI.Size = new System.Drawing.Size(234, 26);
+            this.RandomTSMI.Text = "Случайный";
+            this.RandomTSMI.Click += new System.EventHandler(this.RandomTSMI_Click);
+            // 
+            // NextTSMI
+            // 
+            this.NextTSMI.Name = "NextTSMI";
+            this.NextTSMI.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.NextTSMI.Size = new System.Drawing.Size(234, 26);
+            this.NextTSMI.Text = "Следующий";
+            this.NextTSMI.Click += new System.EventHandler(this.NextButton_Click);
+            // 
+            // PreviousTSMI
+            // 
+            this.PreviousTSMI.Name = "PreviousTSMI";
+            this.PreviousTSMI.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
+            this.PreviousTSMI.Size = new System.Drawing.Size(234, 26);
+            this.PreviousTSMI.Text = "Предыдущий";
+            this.PreviousTSMI.Click += new System.EventHandler(this.PreviousButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -282,6 +321,10 @@ namespace License_Plate_Generator
         private System.Windows.Forms.ToolStripComboBox RegionComboBox;
         private System.Windows.Forms.Label PlateLabel;
         private System.Windows.Forms.Label RegionLabel;
+        private System.Windows.Forms.ToolStripMenuItem сгенерироватьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem RandomTSMI;
+        private System.Windows.Forms.ToolStripMenuItem NextTSMI;
+        private System.Windows.Forms.ToolStripMenuItem PreviousTSMI;
     }
 }
 

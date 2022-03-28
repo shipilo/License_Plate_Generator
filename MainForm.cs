@@ -111,6 +111,7 @@ namespace License_Plate_Generator
             }
             sqlCommand.CommandText = "end";
             sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
         }
 
         private void RegionComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -134,7 +135,7 @@ namespace License_Plate_Generator
             RegionLabel.Text = $"{regionSelected}";
         }
 
-        private void RandomButton_Click(object sender, EventArgs e)
+        private void RandomTSMI_Click(object sender, EventArgs e)
         {
             Plate plate = new Plate();
             do
@@ -154,32 +155,12 @@ namespace License_Plate_Generator
 
         private void PreviousButton_Click(object sender, EventArgs e)
         {
-            /* не то ты Саня сделал, почитай задание
-            try
-            {
-                int index = plates.IndexOf(PlateLabel.Text);
-                PlateLabel.Text = plates[index - 1];
-            }
-            catch
-            {
-                MessageBox.Show("Достигнут первый элемент коллекции", "Ошибка");
-            }
-            */
+
         }
 
         private void NextButton_Click(object sender, EventArgs e)
         {
-            /*
-            try
-            {
-                int index = plates.IndexOf(PlateLabel.Text);
-                PlateLabel.Text = plates[index + 1];
-            }
-            catch
-            {
-                MessageBox.Show("Достигнут последний элемент коллекции", "Ошибка");
-            }
-            */
+            
         }
     }
 }
