@@ -269,7 +269,7 @@ namespace License_Plate_Generator
             this.NextTSMI.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.NextTSMI.Size = new System.Drawing.Size(234, 26);
             this.NextTSMI.Text = "Следующий";
-            this.NextTSMI.Click += new System.EventHandler(this.NextButton_Click);
+            this.NextTSMI.Click += new System.EventHandler(this.NextTSMI_Click);
             // 
             // PreviousTSMI
             // 
@@ -277,7 +277,7 @@ namespace License_Plate_Generator
             this.PreviousTSMI.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
             this.PreviousTSMI.Size = new System.Drawing.Size(234, 26);
             this.PreviousTSMI.Text = "Предыдущий";
-            this.PreviousTSMI.Click += new System.EventHandler(this.PreviousButton_Click);
+            this.PreviousTSMI.Click += new System.EventHandler(this.PreviousTSMI_Click);
             // 
             // MainForm
             // 

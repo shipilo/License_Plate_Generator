@@ -153,14 +153,14 @@ namespace License_Plate_Generator
             PlateLabel.Text = plate.ToString();
         }
 
-        private void PreviousButton_Click(object sender, EventArgs e)
+        private void PreviousTSMI_Click(object sender, EventArgs e)
         {
-
+            plates[plates.Count - 1].DecreaseNumbers();
         }
 
-        private void NextButton_Click(object sender, EventArgs e)
+        private void NextTSMI_Click(object sender, EventArgs e)
         {
-            
+            plates[plates.Count - 1].IncreaseNumbers();
         }
     }
 }
