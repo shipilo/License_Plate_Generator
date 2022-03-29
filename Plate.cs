@@ -59,109 +59,148 @@ namespace License_Plate_Generator
             this.symbols = symbols.ToCharArray();
             this.region = region;
         }
+        public Plate(string numbers, char[] symbols, int region) : this()
+        {
+            this.numbers = numbers.ToCharArray();
+            this.symbols = symbols;
+            this.region = region;
+        }
 
-        public void IncreaseNumbers()
+        public void IncreaseNumbers(List<Plate> plates)
         {
             try
             {
-                int buffer = Convert.ToInt32(numbers[0] + numbers[1] + numbers[2]);
+                int index = plates.Count - 1;
+                int buffer = Convert.ToInt32(new string(plates[index].numbers)) + 1;
 
-                if (buffer.Equals(999))
+                if (buffer == 1000)
                 {
-                    IncreaseLetters();
+                    IncreaseLetters(plates);
                     return;
                 }
 
-                buffer++;
+                Plate examplePlate = new Plate(buffer.ToString(), plates[index].symbols, plates[index].region);
+            
+                if(!plates.Contains(examplePlate))
+                {
+                    plates.Add(examplePlate);
+                }
+                
 
-                numbers[0] = Convert.ToChar(buffer / 100);
-                numbers[1] = Convert.ToChar(buffer % 100 / 10);
-                numbers[2] = Convert.ToChar(buffer % 10);
+
             }
             catch (Exception ex)
             {
-                //Дописать
+                Console.WriteLine($"Ошибка: {ex}");
             }
         }
 
-        public void IncreaseLetters()
+        public void IncreaseLetters(List<Plate> plates)
         {
-            //Проверка символов на их буквы
-            if (symbols[2].Equals('х'))
+            int index = plates.Count - 1;
+            char[] buffSymbols = { plates[index].symbols[0], plates[index].symbols[1], plates[index].symbols[2] };
+
+            if (buffSymbols.ToString() == "xxx")
             {
-                if (symbols[1].Equals('х'))
+                throw new Exception("Достигнут предел");
+            }
+
+            if (buffSymbols[2] == 'x')
+            {
+                if (buffSymbols[1] == 'x')
                 {
-                    try
-                    {
-                        symbols[0] = symbolSet[Array.IndexOf(symbolSet, symbols[0]) + 1];
-                    }
-                    catch (IndexOutOfRangeException)
-                    {
-                        //Если уже "XXX"
-                        return;
-                    }
-                    return;
+                    buffSymbols[0] = symbolSet[Array.IndexOf(symbolSet, buffSymbols[0]) + 1];
                 }
                 else
                 {
-                    symbols[1] = symbolSet[Array.IndexOf(symbolSet, symbols[1]) + 1];
-                    return;
+                    buffSymbols[1] = symbolSet[Array.IndexOf(symbolSet, buffSymbols[1]) + 1];
                 }
             }
+            else
+            {
+                buffSymbols[2] = symbolSet[Array.IndexOf(symbolSet, buffSymbols[2]) + 1];
+            }
 
-            //Если последний символ не 'х', то увеличиваем на 1
-            symbols[2] = symbolSet[Array.IndexOf(symbolSet, symbols[2]) + 1];
+            Plate examplePlate = new Plate(plates[index].numbers.ToString(), buffSymbols, plates[index].region);
+
+            if (!plates.Contains(examplePlate))
+            {
+                plates.Add(examplePlate);
+            }
+
         }
 
-        public void DecreaseNumbers()
+        public void DecreaseNumbers(List<Plate> plates)
         {
             try
             {
-                int buffer = Convert.ToInt32(numbers[0] + numbers[1] + numbers[2]);
+                int index = plates.Count - 1;
+                int buffer = Convert.ToInt32(new string(plates[index].numbers)) - 1;
 
-                if (buffer.Equals(000))
+                string plate = "";
+
+                if(buffer < 0)
                 {
-                    DecreaseLetters();
+                    DecreaseLetters(plates);
                     return;
                 }
 
-                buffer--;
-
-                numbers[0] = Convert.ToChar(buffer / 100);
-                numbers[1] = Convert.ToChar(buffer % 100 / 10);
-                numbers[2] = Convert.ToChar(buffer % 10);
-            }
-            catch (Exception ex)
-            {
-                //Дописать
-            }
-        }
-
-        public void DecreaseLetters()
-        {
-            if (symbols[2].Equals('а'))
-            {
-                if (symbols[1].Equals('а'))
+                if (buffer < 100)
                 {
-                    try
-                    {
-                        symbols[0] = symbolSet[Array.IndexOf(symbolSet, symbols[0]) - 1];
-                    }
-                    catch (IndexOutOfRangeException)
-                    {
-                        //Если номер уже "AAA"
-                        return;
-                    }
-                    return;
+                    plate = "0" + buffer.ToString();
                 }
                 else
                 {
-                    symbols[1] = symbolSet[Array.IndexOf(symbolSet, symbols[1]) - 1];
-                    return;
+                    plate = buffer.ToString();
+                }
+
+                Plate examplePlate = new Plate(plate, plates[index].symbols, plates[index].region);
+
+                if (!plates.Contains(examplePlate))
+                {
+                    plates.Add(examplePlate);
                 }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка: {ex}");
+            }
+        }
 
-            symbols[2] = symbolSet[Array.IndexOf(symbolSet, symbols[2]) - 1];
+        public void DecreaseLetters(List<Plate> plates)
+        {
+            int index = plates.Count - 1;
+            char[] buffSymbols = { plates[index].symbols[0], plates[index].symbols[1], plates[index].symbols[2] };
+
+            if (buffSymbols.ToString() == "ааа")
+            {
+                throw new Exception("Достигнут предел");
+            }
+
+            if (buffSymbols[2] == 'а')
+            {
+                if (buffSymbols[1] == 'а')
+                {
+                    buffSymbols[0] = symbolSet[Array.IndexOf(symbolSet, buffSymbols[0]) - 1];
+                }
+                else
+                {
+                    buffSymbols[1] = symbolSet[Array.IndexOf(symbolSet, buffSymbols[1]) - 1];
+                }
+            }
+            else
+            {
+                buffSymbols[2] = symbolSet[Array.IndexOf(symbolSet, buffSymbols[2]) - 1];
+            }
+
+            Plate examplePlate = new Plate(plates[index].numbers.ToString(), buffSymbols, plates[index].region);
+
+            if (!plates.Contains(examplePlate))
+            {
+                plates.Add(examplePlate);
+                
+            }
+
         }
     }
 }
