@@ -298,7 +298,7 @@ namespace License_Plate_Generator
             this.Text = "Генератор Номерных Знаков - LPG";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.ClientSizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
+            this.ClientSizeChanged += new System.EventHandler(this.DrawLabel);
             this.MenuStrip.ResumeLayout(false);
             this.MenuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PlatePictureBox)).EndInit();

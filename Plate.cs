@@ -47,160 +47,138 @@ namespace License_Plate_Generator
             return base.GetHashCode();
         }
 
+        static Plate()
+        {
+            symbolSet = new char[] { 'а', 'в', 'е', 'к', 'м', 'н', 'о', 'р', 'с', 'т', 'у', 'х' };
+        }
         public Plate()
         {
-            symbolSet = new char[]{ 'а', 'в', 'е', 'к', 'м', 'н', 'о', 'р', 'с', 'т', 'у', 'х' };
             numbers = new char[3];
             symbols = new char[3];
     }
-        public Plate(string numbers, string symbols, int region) : this()
+        public Plate(Plate plate)
+        {
+            numbers = (char[])plate.numbers.Clone();
+            symbols = (char[])plate.symbols.Clone();
+            region = plate.region;
+        }
+        public Plate(string numbers, string symbols, int region)
         {
             this.numbers = numbers.ToCharArray();
             this.symbols = symbols.ToCharArray();
             this.region = region;
         }
-        public Plate(string numbers, char[] symbols, int region) : this()
+        public Plate(string numbers, char[] symbols, int region)
         {
             this.numbers = numbers.ToCharArray();
             this.symbols = symbols;
             this.region = region;
         }
 
-        public void IncreaseNumbers(List<Plate> plates)
+        public static Plate GenerateRandom(List<Plate> plates, int region)
         {
-            try
+            Random rnd = new Random();
+            Plate plate = new Plate();
+            do
             {
-                int index = plates.Count - 1;
-                int buffer = Convert.ToInt32(new string(plates[index].numbers)) + 1;
-
-                if (buffer == 1000)
+                for (int i = 0; i <= 2; i++)
                 {
-                    IncreaseLetters(plates);
-                    return;
+                    plate.Symbols[i] = symbolSet[rnd.Next(11)];
+                    plate.Numbers[i] = Convert.ToChar(rnd.Next(10).ToString());
                 }
+                plate.Region = region;
+            } while (plates.Contains(plate));
 
-                Plate examplePlate = new Plate(buffer.ToString(), plates[index].symbols, plates[index].region);
-            
-                if(!plates.Contains(examplePlate))
-                {
-                    plates.Add(examplePlate);
-                }
-                
-
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Ошибка: {ex}");
-            }
+            return plate;
         }
 
-        public void IncreaseLetters(List<Plate> plates)
+        public static Plate GenerateNext(List<Plate> plates)
         {
-            int index = plates.Count - 1;
-            char[] buffSymbols = { plates[index].symbols[0], plates[index].symbols[1], plates[index].symbols[2] };
-
-            if (buffSymbols.ToString() == "xxx")
-            {
-                throw new Exception("Достигнут предел");
-            }
-
-            if (buffSymbols[2] == 'x')
-            {
-                if (buffSymbols[1] == 'x')
-                {
-                    buffSymbols[0] = symbolSet[Array.IndexOf(symbolSet, buffSymbols[0]) + 1];
-                }
-                else
-                {
-                    buffSymbols[1] = symbolSet[Array.IndexOf(symbolSet, buffSymbols[1]) + 1];
-                }
-            }
-            else
-            {
-                buffSymbols[2] = symbolSet[Array.IndexOf(symbolSet, buffSymbols[2]) + 1];
-            }
-
-            Plate examplePlate = new Plate(plates[index].numbers.ToString(), buffSymbols, plates[index].region);
-
-            if (!plates.Contains(examplePlate))
-            {
-                plates.Add(examplePlate);
-            }
-
+            return IncreaseLetters(plates);
         }
 
-        public void DecreaseNumbers(List<Plate> plates)
+        public static Plate GeneratePrevious(List<Plate> plates)
         {
-            try
-            {
-                int index = plates.Count - 1;
-                int buffer = Convert.ToInt32(new string(plates[index].numbers)) - 1;
-
-                string plate = "";
-
-                if(buffer < 0)
-                {
-                    DecreaseLetters(plates);
-                    return;
-                }
-
-                if (buffer < 100)
-                {
-                    plate = "0" + buffer.ToString();
-                }
-                else
-                {
-                    plate = buffer.ToString();
-                }
-
-                Plate examplePlate = new Plate(plate, plates[index].symbols, plates[index].region);
-
-                if (!plates.Contains(examplePlate))
-                {
-                    plates.Add(examplePlate);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Ошибка: {ex}");
-            }
+            return DecreaseLetters(plates);
         }
 
-        public void DecreaseLetters(List<Plate> plates)
+        private static Plate IncreaseNumbers(List<Plate> plates)
         {
-            int index = plates.Count - 1;
-            char[] buffSymbols = { plates[index].symbols[0], plates[index].symbols[1], plates[index].symbols[2] };
+            Plate lastPlate = new Plate(plates[plates.Count - 1]);
+            int numbers = Convert.ToInt32(new string(lastPlate.numbers));
 
-            if (buffSymbols.ToString() == "ааа")
-            {
-                throw new Exception("Достигнут предел");
-            }
+            do {
+                numbers = (numbers + 1) % 1000;
+                lastPlate.numbers[0] = (char)(numbers / 100 + 48);
+                lastPlate.numbers[1] = (char)(numbers / 10 % 10 + 48);
+                lastPlate.numbers[2] = (char)(numbers % 10 + 48);
+            } while (numbers != 0 && plates.Contains(lastPlate));
 
-            if (buffSymbols[2] == 'а')
+            return numbers == 0 ? null : lastPlate;
+        }
+
+        private static Plate IncreaseLetters(List<Plate> plates)
+        {
+            Plate lastPlate = new Plate(plates[plates.Count - 1]);
+            //12-ричное представление символов
+            int symbols = 144 * Array.IndexOf(symbolSet, lastPlate.symbols[0]) + 12 * Array.IndexOf(symbolSet, lastPlate.symbols[1]) + Array.IndexOf(symbolSet, lastPlate.symbols[2]);
+            Plate increased;
+
+            do
             {
-                if (buffSymbols[1] == 'а')
+                increased = IncreaseNumbers(plates);
+                if (increased != null)
                 {
-                    buffSymbols[0] = symbolSet[Array.IndexOf(symbolSet, buffSymbols[0]) - 1];
+                    return increased;
                 }
-                else
+
+                symbols = (symbols + 1) % 1728;
+                lastPlate.symbols[0] = symbolSet[symbols / 144];
+                lastPlate.symbols[1] = symbolSet[symbols / 12 % 12];
+                lastPlate.symbols[2] = symbolSet[symbols % 12];
+            } while (symbols != 0 && plates.Contains(lastPlate));
+
+            return symbols == 0 ? null : lastPlate;
+        }
+
+        private static Plate DecreaseNumbers(List<Plate> plates)
+        {
+            Plate lastPlate = new Plate(plates[plates.Count - 1]);
+            int numbers = Convert.ToInt32(new string(lastPlate.numbers));
+
+            do
+            {
+                numbers = numbers - 1;
+                lastPlate.numbers[0] = (char)(numbers / 100 + 48);
+                lastPlate.numbers[1] = (char)(numbers / 10 % 10 + 48);
+                lastPlate.numbers[2] = (char)(numbers % 10 + 48);
+            } while (numbers != -1 && plates.Contains(lastPlate));
+
+            return numbers == -1 ? null : lastPlate;
+        }
+
+        private static Plate DecreaseLetters(List<Plate> plates)
+        {
+            Plate lastPlate = new Plate(plates[plates.Count - 1]);
+            //12-ричное представление символов
+            int symbols = 144 * Array.IndexOf(symbolSet, lastPlate.symbols[0]) + 12 * Array.IndexOf(symbolSet, lastPlate.symbols[1]) + Array.IndexOf(symbolSet, lastPlate.symbols[2]);
+            Plate decreased;
+
+            do
+            {
+                decreased = DecreaseNumbers(plates);
+                if (decreased != null)
                 {
-                    buffSymbols[1] = symbolSet[Array.IndexOf(symbolSet, buffSymbols[1]) - 1];
+                    return decreased;
                 }
-            }
-            else
-            {
-                buffSymbols[2] = symbolSet[Array.IndexOf(symbolSet, buffSymbols[2]) - 1];
-            }
 
-            Plate examplePlate = new Plate(plates[index].numbers.ToString(), buffSymbols, plates[index].region);
+                symbols = (symbols + 1727) % 1728;
+                lastPlate.symbols[0] = symbolSet[symbols / 144];
+                lastPlate.symbols[1] = symbolSet[symbols / 12 % 12];
+                lastPlate.symbols[2] = symbolSet[symbols % 12];
+            } while (symbols != 1727 && plates.Contains(lastPlate));
 
-            if (!plates.Contains(examplePlate))
-            {
-                plates.Add(examplePlate);
-                
-            }
-
+            return symbols == 1727 ? null : lastPlate;
         }
     }
 }
