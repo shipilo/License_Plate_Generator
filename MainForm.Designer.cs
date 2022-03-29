@@ -314,7 +314,7 @@ namespace License_Plate_Generator
         private System.Windows.Forms.PictureBox PlatePictureBox;
         private System.Windows.Forms.Button ColorButton;
         private System.Windows.Forms.ColorDialog colorDialog;
-        private new System.Windows.Forms.ContextMenuStrip ContextMenuStrip;
+        private System.Windows.Forms.ContextMenuStrip ContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem NextCMS;
         private System.Windows.Forms.ToolStripMenuItem BackCMS;
         private System.Windows.Forms.ToolStripMenuItem RandomCMS;

@@ -155,16 +155,12 @@ namespace License_Plate_Generator
 
         private void PreviousTSMI_Click(object sender, EventArgs e)
         {
-            plates[plates.Count - 1].DecreaseNumbers(plates);
-            
-            PlateLabel.Text = plates[plates.Count - 1].ToString();
+            plates[plates.Count - 1].DecreaseNumbers();
         }
 
-        private void NextTSMI_Click(object sender, EventArgs e )
+        private void NextTSMI_Click(object sender, EventArgs e)
         {
-            plates[plates.Count - 1].IncreaseNumbers(plates);
-
-            PlateLabel.Text = plates[plates.Count - 1].ToString();
+            plates[plates.Count - 1].IncreaseNumbers();
         }
     }
 }
