@@ -31,6 +31,10 @@ namespace License_Plate_Generator
         {
             this.components = new System.ComponentModel.Container();
             this.MenuStrip = new System.Windows.Forms.MenuStrip();
+            this.сгенерироватьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.RandomTSMI = new System.Windows.Forms.ToolStripMenuItem();
+            this.NextTSMI = new System.Windows.Forms.ToolStripMenuItem();
+            this.PreviousTSMI = new System.Windows.Forms.ToolStripMenuItem();
             this.RegionComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.PlatePictureBox = new System.Windows.Forms.PictureBox();
             this.ColorButton = new System.Windows.Forms.Button();
@@ -41,10 +45,6 @@ namespace License_Plate_Generator
             this.RandomCMS = new System.Windows.Forms.ToolStripMenuItem();
             this.PlateLabel = new System.Windows.Forms.Label();
             this.RegionLabel = new System.Windows.Forms.Label();
-            this.сгенерироватьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.RandomTSMI = new System.Windows.Forms.ToolStripMenuItem();
-            this.NextTSMI = new System.Windows.Forms.ToolStripMenuItem();
-            this.PreviousTSMI = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PlatePictureBox)).BeginInit();
             this.ContextMenuStrip.SuspendLayout();
@@ -61,6 +61,40 @@ namespace License_Plate_Generator
             this.MenuStrip.Size = new System.Drawing.Size(800, 32);
             this.MenuStrip.TabIndex = 0;
             this.MenuStrip.Text = "Меню";
+            // 
+            // сгенерироватьToolStripMenuItem
+            // 
+            this.сгенерироватьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.RandomTSMI,
+            this.NextTSMI,
+            this.PreviousTSMI});
+            this.сгенерироватьToolStripMenuItem.Name = "сгенерироватьToolStripMenuItem";
+            this.сгенерироватьToolStripMenuItem.Size = new System.Drawing.Size(129, 28);
+            this.сгенерироватьToolStripMenuItem.Text = "Сгенерировать";
+            // 
+            // RandomTSMI
+            // 
+            this.RandomTSMI.Name = "RandomTSMI";
+            this.RandomTSMI.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.RandomTSMI.Size = new System.Drawing.Size(234, 26);
+            this.RandomTSMI.Text = "Случайный";
+            this.RandomTSMI.Click += new System.EventHandler(this.RandomTSMI_Click);
+            // 
+            // NextTSMI
+            // 
+            this.NextTSMI.Name = "NextTSMI";
+            this.NextTSMI.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.NextTSMI.Size = new System.Drawing.Size(234, 26);
+            this.NextTSMI.Text = "Следующий";
+            this.NextTSMI.Click += new System.EventHandler(this.NextTSMI_Click);
+            // 
+            // PreviousTSMI
+            // 
+            this.PreviousTSMI.Name = "PreviousTSMI";
+            this.PreviousTSMI.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
+            this.PreviousTSMI.Size = new System.Drawing.Size(234, 26);
+            this.PreviousTSMI.Text = "Предыдущий";
+            this.PreviousTSMI.Click += new System.EventHandler(this.PreviousTSMI_Click);
             // 
             // RegionComboBox
             // 
@@ -244,40 +278,6 @@ namespace License_Plate_Generator
             this.RegionLabel.Size = new System.Drawing.Size(121, 85);
             this.RegionLabel.TabIndex = 10;
             this.RegionLabel.Text = "11";
-            // 
-            // сгенерироватьToolStripMenuItem
-            // 
-            this.сгенерироватьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.RandomTSMI,
-            this.NextTSMI,
-            this.PreviousTSMI});
-            this.сгенерироватьToolStripMenuItem.Name = "сгенерироватьToolStripMenuItem";
-            this.сгенерироватьToolStripMenuItem.Size = new System.Drawing.Size(129, 28);
-            this.сгенерироватьToolStripMenuItem.Text = "Сгенерировать";
-            // 
-            // RandomTSMI
-            // 
-            this.RandomTSMI.Name = "RandomTSMI";
-            this.RandomTSMI.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.RandomTSMI.Size = new System.Drawing.Size(234, 26);
-            this.RandomTSMI.Text = "Случайный";
-            this.RandomTSMI.Click += new System.EventHandler(this.RandomTSMI_Click);
-            // 
-            // NextTSMI
-            // 
-            this.NextTSMI.Name = "NextTSMI";
-            this.NextTSMI.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.NextTSMI.Size = new System.Drawing.Size(234, 26);
-            this.NextTSMI.Text = "Следующий";
-            this.NextTSMI.Click += new System.EventHandler(this.NextTSMI_Click);
-            // 
-            // PreviousTSMI
-            // 
-            this.PreviousTSMI.Name = "PreviousTSMI";
-            this.PreviousTSMI.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.PreviousTSMI.Size = new System.Drawing.Size(234, 26);
-            this.PreviousTSMI.Text = "Предыдущий";
-            this.PreviousTSMI.Click += new System.EventHandler(this.PreviousTSMI_Click);
             // 
             // MainForm
             // 
