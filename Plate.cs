@@ -94,91 +94,92 @@ namespace License_Plate_Generator
 
         public static Plate GenerateNext(List<Plate> plates)
         {
-            return IncreaseLetters(plates);
+            Plate newPlate = new Plate(plates[plates.Count - 1]);
+            return IncreaseLetters(plates, newPlate);
         }
 
         public static Plate GeneratePrevious(List<Plate> plates)
         {
-            return DecreaseLetters(plates);
+            Plate newPlate = new Plate(plates[plates.Count - 1]);
+            return DecreaseLetters(plates, newPlate);
         }
 
-        private static Plate IncreaseNumbers(List<Plate> plates)
+        private static Plate IncreaseNumbers(List<Plate> plates, Plate newPlate)
         {
-            Plate lastPlate = new Plate(plates[plates.Count - 1]);
-            int numbers = Convert.ToInt32(new string(lastPlate.numbers));
+            int numbers = Convert.ToInt32(new string(newPlate.numbers));
 
-            do {
-                numbers = (numbers + 1) % 1000;
-                lastPlate.numbers[0] = (char)(numbers / 100 + 48);
-                lastPlate.numbers[1] = (char)(numbers / 10 % 10 + 48);
-                lastPlate.numbers[2] = (char)(numbers % 10 + 48);
-            } while (numbers != 0 && plates.Contains(lastPlate));
+            while (plates.Contains(newPlate) && numbers != 999)
+            {
+                numbers += 1;
+                newPlate.numbers[0] = (char)(numbers / 100 + 48);
+                newPlate.numbers[1] = (char)(numbers / 10 % 10 + 48);
+                newPlate.numbers[2] = (char)(numbers % 10 + 48);
+            }
 
-            return numbers == 0 ? null : lastPlate;
+            return plates.Contains(newPlate) ? null : newPlate;
         }
 
-        private static Plate IncreaseLetters(List<Plate> plates)
+        private static Plate IncreaseLetters(List<Plate> plates, Plate newPlate)
         {
-            Plate lastPlate = new Plate(plates[plates.Count - 1]);
             //12-ричное представление символов
-            int symbols = 144 * Array.IndexOf(symbolSet, lastPlate.symbols[0]) + 12 * Array.IndexOf(symbolSet, lastPlate.symbols[1]) + Array.IndexOf(symbolSet, lastPlate.symbols[2]);
+            int symbols = 144 * Array.IndexOf(symbolSet, newPlate.symbols[0]) + 12 * Array.IndexOf(symbolSet, newPlate.symbols[1]) + Array.IndexOf(symbolSet, newPlate.symbols[2]);
             Plate increased;
 
             do
             {
-                increased = IncreaseNumbers(plates);
-                if (increased != null)
+                increased = IncreaseNumbers(plates, new Plate(newPlate));
+                if (increased != null || symbols == 0)
                 {
                     return increased;
                 }
 
                 symbols = (symbols + 1) % 1728;
-                lastPlate.symbols[0] = symbolSet[symbols / 144];
-                lastPlate.symbols[1] = symbolSet[symbols / 12 % 12];
-                lastPlate.symbols[2] = symbolSet[symbols % 12];
-            } while (symbols != 0 && plates.Contains(lastPlate));
+                newPlate.symbols[0] = symbolSet[symbols / 144];
+                newPlate.symbols[1] = symbolSet[symbols / 12 % 12];
+                newPlate.symbols[2] = symbolSet[symbols % 12];
+                newPlate.numbers = new char[] { '0', '0', '0' };
+            } while (plates.Contains(newPlate));
 
-            return symbols == 0 ? null : lastPlate;
+            return newPlate;
         }
 
-        private static Plate DecreaseNumbers(List<Plate> plates)
+        private static Plate DecreaseNumbers(List<Plate> plates, Plate newPlate)
         {
-            Plate lastPlate = new Plate(plates[plates.Count - 1]);
-            int numbers = Convert.ToInt32(new string(lastPlate.numbers));
+            int numbers = Convert.ToInt32(new string(newPlate.numbers));
 
-            do
+            while (plates.Contains(newPlate) && numbers != 0)
             {
-                numbers = numbers - 1;
-                lastPlate.numbers[0] = (char)(numbers / 100 + 48);
-                lastPlate.numbers[1] = (char)(numbers / 10 % 10 + 48);
-                lastPlate.numbers[2] = (char)(numbers % 10 + 48);
-            } while (numbers != -1 && plates.Contains(lastPlate));
+                numbers -= 1;
+                newPlate.numbers[0] = (char)(numbers / 100 + 48);
+                newPlate.numbers[1] = (char)(numbers / 10 % 10 + 48);
+                newPlate.numbers[2] = (char)(numbers % 10 + 48);
+            }
 
-            return numbers == -1 ? null : lastPlate;
+            return plates.Contains(newPlate) ? null : newPlate;
         }
 
-        private static Plate DecreaseLetters(List<Plate> plates)
+        private static Plate DecreaseLetters(List<Plate> plates, Plate newPlate)
         {
-            Plate lastPlate = new Plate(plates[plates.Count - 1]);
             //12-ричное представление символов
-            int symbols = 144 * Array.IndexOf(symbolSet, lastPlate.symbols[0]) + 12 * Array.IndexOf(symbolSet, lastPlate.symbols[1]) + Array.IndexOf(symbolSet, lastPlate.symbols[2]);
+            int symbols = 144 * Array.IndexOf(symbolSet, newPlate.symbols[0]) + 12 * Array.IndexOf(symbolSet, newPlate.symbols[1]) + Array.IndexOf(symbolSet, newPlate.symbols[2]);
             Plate decreased;
 
             do
             {
-                decreased = DecreaseNumbers(plates);
-                if (decreased != null)
+                decreased = DecreaseNumbers(plates, new Plate(newPlate));
+                if (decreased != null || symbols == 0)
                 {
                     return decreased;
                 }
 
                 symbols = (symbols + 1727) % 1728;
-                lastPlate.symbols[0] = symbolSet[symbols / 144];
-                lastPlate.symbols[1] = symbolSet[symbols / 12 % 12];
-                lastPlate.symbols[2] = symbolSet[symbols % 12];
-            } while (symbols != 1727 && plates.Contains(lastPlate));
+                newPlate.symbols[0] = symbolSet[symbols / 144];
+                newPlate.symbols[1] = symbolSet[symbols / 12 % 12];
+                newPlate.symbols[2] = symbolSet[symbols % 12];
+                newPlate.numbers = new char[] { '9', '9', '9' };
+            } while (plates.Contains(newPlate));
 
-            return symbols == 1727 ? null : lastPlate;
+            return newPlate;
         }
     }
 }
