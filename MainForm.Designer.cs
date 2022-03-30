@@ -220,10 +220,6 @@ namespace License_Plate_Generator
             this.ColorButton.UseVisualStyleBackColor = true;
             this.ColorButton.Click += new System.EventHandler(this.ColorButton_Click);
             // 
-            // colorDialog
-            // 
-            this.colorDialog.AllowFullOpen = false;
-            // 
             // ContextMenuStrip
             // 
             this.ContextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -232,7 +228,7 @@ namespace License_Plate_Generator
             this.BackCMS,
             this.RandomCMS});
             this.ContextMenuStrip.Name = "ContextMenuStrip";
-            this.ContextMenuStrip.Size = new System.Drawing.Size(221, 104);
+            this.ContextMenuStrip.Size = new System.Drawing.Size(221, 76);
             this.ContextMenuStrip.Text = "Сгенерировать";
             // 
             // NextCMS
