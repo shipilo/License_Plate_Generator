@@ -232,7 +232,7 @@ namespace License_Plate_Generator
             this.BackCMS,
             this.RandomCMS});
             this.ContextMenuStrip.Name = "ContextMenuStrip";
-            this.ContextMenuStrip.Size = new System.Drawing.Size(221, 76);
+            this.ContextMenuStrip.Size = new System.Drawing.Size(221, 104);
             this.ContextMenuStrip.Text = "Сгенерировать";
             // 
             // NextCMS
@@ -241,6 +241,7 @@ namespace License_Plate_Generator
             this.NextCMS.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.NextCMS.Size = new System.Drawing.Size(220, 24);
             this.NextCMS.Text = "Следующий";
+            this.NextCMS.Click += new System.EventHandler(this.NextCMS_Click);
             // 
             // BackCMS
             // 
@@ -248,6 +249,7 @@ namespace License_Plate_Generator
             this.BackCMS.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
             this.BackCMS.Size = new System.Drawing.Size(220, 24);
             this.BackCMS.Text = "Предыдущий";
+            this.BackCMS.Click += new System.EventHandler(this.BackCMS_Click);
             // 
             // RandomCMS
             // 
@@ -255,6 +257,7 @@ namespace License_Plate_Generator
             this.RandomCMS.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
             this.RandomCMS.Size = new System.Drawing.Size(220, 24);
             this.RandomCMS.Text = "Рандомный";
+            this.RandomCMS.Click += new System.EventHandler(this.RandomCMS_Click);
             // 
             // PlateLabel
             // 
@@ -299,6 +302,7 @@ namespace License_Plate_Generator
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ClientSizeChanged += new System.EventHandler(this.DrawLabel);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseDown);
             this.MenuStrip.ResumeLayout(false);
             this.MenuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PlatePictureBox)).EndInit();

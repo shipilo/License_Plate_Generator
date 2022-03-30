@@ -177,5 +177,28 @@ namespace License_Plate_Generator
 
             PlateLabel.Text = regionPlates[regionPlates.Count - 1].ToString();
         }
+
+        private void MainForm_MouseDown(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Right)
+            {
+                ContextMenuStrip.Show(Cursor.Position);
+            }
+        }
+
+        private void NextCMS_Click(object sender, EventArgs e)
+        {
+            NextTSMI_Click(sender, e);
+        }
+
+        private void BackCMS_Click(object sender, EventArgs e)
+        {
+            PreviousTSMI_Click(sender, e);
+        }
+
+        private void RandomCMS_Click(object sender, EventArgs e)
+        {
+            RandomTSMI_Click(sender, e);
+        }
     }
 }
