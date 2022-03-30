@@ -58,7 +58,7 @@ namespace License_Plate_Generator
             this.RegionComboBox});
             this.MenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip.Name = "MenuStrip";
-            this.MenuStrip.Size = new System.Drawing.Size(800, 32);
+            this.MenuStrip.Size = new System.Drawing.Size(800, 35);
             this.MenuStrip.TabIndex = 0;
             this.MenuStrip.Text = "Меню";
             // 
@@ -69,14 +69,14 @@ namespace License_Plate_Generator
             this.NextTSMI,
             this.PreviousTSMI});
             this.сгенерироватьToolStripMenuItem.Name = "сгенерироватьToolStripMenuItem";
-            this.сгенерироватьToolStripMenuItem.Size = new System.Drawing.Size(129, 28);
+            this.сгенерироватьToolStripMenuItem.Size = new System.Drawing.Size(132, 29);
             this.сгенерироватьToolStripMenuItem.Text = "Сгенерировать";
             // 
             // RandomTSMI
             // 
             this.RandomTSMI.Name = "RandomTSMI";
             this.RandomTSMI.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.RandomTSMI.Size = new System.Drawing.Size(234, 26);
+            this.RandomTSMI.Size = new System.Drawing.Size(252, 30);
             this.RandomTSMI.Text = "Случайный";
             this.RandomTSMI.Click += new System.EventHandler(this.RandomTSMI_Click);
             // 
@@ -84,7 +84,7 @@ namespace License_Plate_Generator
             // 
             this.NextTSMI.Name = "NextTSMI";
             this.NextTSMI.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.NextTSMI.Size = new System.Drawing.Size(234, 26);
+            this.NextTSMI.Size = new System.Drawing.Size(252, 30);
             this.NextTSMI.Text = "Следующий";
             this.NextTSMI.Click += new System.EventHandler(this.NextTSMI_Click);
             // 
@@ -92,7 +92,7 @@ namespace License_Plate_Generator
             // 
             this.PreviousTSMI.Name = "PreviousTSMI";
             this.PreviousTSMI.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.PreviousTSMI.Size = new System.Drawing.Size(234, 26);
+            this.PreviousTSMI.Size = new System.Drawing.Size(252, 30);
             this.PreviousTSMI.Text = "Предыдущий";
             this.PreviousTSMI.Click += new System.EventHandler(this.PreviousTSMI_Click);
             // 
@@ -193,7 +193,7 @@ namespace License_Plate_Generator
             "98 (Санкт-Петербург)",
             "99 (Москва)"});
             this.RegionComboBox.Name = "RegionComboBox";
-            this.RegionComboBox.Size = new System.Drawing.Size(250, 28);
+            this.RegionComboBox.Size = new System.Drawing.Size(250, 29);
             this.RegionComboBox.SelectedIndexChanged += new System.EventHandler(this.RegionComboBox_SelectedIndexChanged);
             // 
             // PlatePictureBox
@@ -232,28 +232,28 @@ namespace License_Plate_Generator
             this.BackCMS,
             this.RandomCMS});
             this.ContextMenuStrip.Name = "ContextMenuStrip";
-            this.ContextMenuStrip.Size = new System.Drawing.Size(221, 76);
+            this.ContextMenuStrip.Size = new System.Drawing.Size(232, 82);
             this.ContextMenuStrip.Text = "Сгенерировать";
             // 
             // NextCMS
             // 
             this.NextCMS.Name = "NextCMS";
             this.NextCMS.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.NextCMS.Size = new System.Drawing.Size(220, 24);
+            this.NextCMS.Size = new System.Drawing.Size(231, 26);
             this.NextCMS.Text = "Следующий";
             // 
             // BackCMS
             // 
             this.BackCMS.Name = "BackCMS";
             this.BackCMS.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.BackCMS.Size = new System.Drawing.Size(220, 24);
+            this.BackCMS.Size = new System.Drawing.Size(231, 26);
             this.BackCMS.Text = "Предыдущий";
             // 
             // RandomCMS
             // 
             this.RandomCMS.Name = "RandomCMS";
             this.RandomCMS.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.RandomCMS.Size = new System.Drawing.Size(220, 24);
+            this.RandomCMS.Size = new System.Drawing.Size(231, 26);
             this.RandomCMS.Text = "Рандомный";
             // 
             // PlateLabel
@@ -263,7 +263,7 @@ namespace License_Plate_Generator
             this.PlateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 70.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.PlateLabel.Location = new System.Drawing.Point(25, 225);
             this.PlateLabel.Name = "PlateLabel";
-            this.PlateLabel.Size = new System.Drawing.Size(490, 132);
+            this.PlateLabel.Size = new System.Drawing.Size(535, 144);
             this.PlateLabel.TabIndex = 9;
             this.PlateLabel.Text = "A123BC";
             // 
@@ -275,7 +275,7 @@ namespace License_Plate_Generator
             this.RegionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 45F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.RegionLabel.Location = new System.Drawing.Point(627, 225);
             this.RegionLabel.Name = "RegionLabel";
-            this.RegionLabel.Size = new System.Drawing.Size(121, 85);
+            this.RegionLabel.Size = new System.Drawing.Size(132, 93);
             this.RegionLabel.TabIndex = 10;
             this.RegionLabel.Text = "11";
             // 
@@ -295,6 +295,7 @@ namespace License_Plate_Generator
             this.Location = global::License_Plate_Generator.Properties.Settings.Default.WindowLocation;
             this.MainMenuStrip = this.MenuStrip;
             this.Name = "MainForm";
+            this.ShowIcon = false;
             this.Text = "Генератор Номерных Знаков - LPG";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
