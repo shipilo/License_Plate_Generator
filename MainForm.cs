@@ -12,6 +12,7 @@ namespace License_Plate_Generator
         private SQLiteConnection sqlConnection;
         private SQLiteCommand sqlCommand;
         private List<Plate> plates;
+        private List<Plate> regionPlates;
         private int regionSelected;
 
         public MainForm()
@@ -20,9 +21,8 @@ namespace License_Plate_Generator
             sqlConnection = new SQLiteConnection("Data Source=../../data.db");
             sqlCommand = new SQLiteCommand(sqlConnection);
             plates = new List<Plate>();
+            regionPlates = new List<Plate>();
         }
-
-        Random rnd = new Random();
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -50,14 +50,12 @@ namespace License_Plate_Generator
             PlateLabel.Parent = PlatePictureBox;
             RegionLabel.Parent = PlatePictureBox;
 
-            PlateLabel.Text = plates.Count != 0 ? plates[plates.Count - 1].ToString() : "";
             RegionComboBox.SelectedIndex = Properties.Settings.Default.SelectedRegion;
-            RegionComboBox_SelectedIndexChanged(this, EventArgs.Empty);
             Size = Properties.Settings.Default.WindowSize;
 
             PlatePictureBox.ContextMenuStrip = ContextMenuStrip;
 
-            MainForm_SizeChanged(this, EventArgs.Empty);
+            DrawLabel(this, EventArgs.Empty);
         }
 
         private void ColorButton_Click(object sender, EventArgs e)
@@ -70,7 +68,7 @@ namespace License_Plate_Generator
             }
         }
 
-        private void MainForm_SizeChanged(object sender, EventArgs e)
+        private void DrawLabel(object sender, EventArgs e)
         {
             PlatePictureBox.Width = (Width - 18) * 11/12;
             PlatePictureBox.Height = PlatePictureBox.Width / 5;
@@ -98,6 +96,8 @@ namespace License_Plate_Generator
                 Properties.Settings.Default.WindowSize = RestoreBounds.Size;
             }
             Properties.Settings.Default.Save();
+
+            plates.AddRange(regionPlates.FindAll(x => !plates.Contains(x)));
 
             sqlConnection.Open();
             sqlCommand.CommandText = "begin";
@@ -132,35 +132,50 @@ namespace License_Plate_Generator
                     break;
             }
 
+            plates.AddRange(regionPlates.FindAll(x => !plates.Contains(x)));
+            regionPlates = plates.FindAll(x => x.Region == regionSelected);
             RegionLabel.Text = $"{regionSelected}";
+            PlateLabel.Text = regionPlates.Count == 0 ? "" : regionPlates[regionPlates.Count - 1].ToString();
         }
 
         private void RandomTSMI_Click(object sender, EventArgs e)
         {
-            Plate plate = new Plate();
-            do
-            {
-                for (int i = 0; i <= 2; i++)
-                {
-                    plate.Symbols[i] = Plate.symbolSet[rnd.Next(1, 11)];
-                    plate.Numbers[i] = Convert.ToChar(rnd.Next(1, 9).ToString());
-                }
-                plate.Region = regionSelected; 
-            } while (plates.Contains(plate));
+            regionPlates.Add(Plate.GenerateRandom(regionPlates, regionSelected));
 
-            plates.Add(plate);
-
-            PlateLabel.Text = plate.ToString();
+            PlateLabel.Text = regionPlates[regionPlates.Count - 1].ToString();
+            DrawLabel(sender, EventArgs.Empty);
         }
 
         private void PreviousTSMI_Click(object sender, EventArgs e)
         {
-            plates[plates.Count - 1].DecreaseNumbers();
+            if (regionPlates.Count == 0)
+            {
+                MessageBox.Show("Сначала сгенерируйте случайный номер", "Внимание", MessageBoxButtons.OK);
+                return;
+            }
+            Plate generated = Plate.GeneratePrevious(regionPlates);
+            if (generated != null)
+            {
+                regionPlates.Add(generated);
+            }
+
+            PlateLabel.Text = regionPlates[regionPlates.Count - 1].ToString();
         }
 
-        private void NextTSMI_Click(object sender, EventArgs e)
+        private void NextTSMI_Click(object sender, EventArgs e )
         {
-            plates[plates.Count - 1].IncreaseNumbers();
+            if (regionPlates.Count == 0)
+            {
+                MessageBox.Show("Сначала сгенерируйте случайный номер", "Внимание", MessageBoxButtons.OK);
+                return;
+            }
+            Plate generated = Plate.GenerateNext(regionPlates);
+            if (generated != null)
+            {
+                regionPlates.Add(generated);
+            }
+
+            PlateLabel.Text = regionPlates[regionPlates.Count - 1].ToString();
         }
     }
 }

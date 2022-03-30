@@ -47,121 +47,139 @@ namespace License_Plate_Generator
             return base.GetHashCode();
         }
 
+        static Plate()
+        {
+            symbolSet = new char[] { 'а', 'в', 'е', 'к', 'м', 'н', 'о', 'р', 'с', 'т', 'у', 'х' };
+        }
         public Plate()
         {
-            symbolSet = new char[]{ 'а', 'в', 'е', 'к', 'м', 'н', 'о', 'р', 'с', 'т', 'у', 'х' };
             numbers = new char[3];
             symbols = new char[3];
     }
-        public Plate(string numbers, string symbols, int region) : this()
+        public Plate(Plate plate)
+        {
+            numbers = (char[])plate.numbers.Clone();
+            symbols = (char[])plate.symbols.Clone();
+            region = plate.region;
+        }
+        public Plate(string numbers, string symbols, int region)
         {
             this.numbers = numbers.ToCharArray();
             this.symbols = symbols.ToCharArray();
             this.region = region;
         }
-
-        public void IncreaseNumbers()
+        public Plate(string numbers, char[] symbols, int region)
         {
-            try
-            {
-                int buffer = Convert.ToInt32(numbers[0] + numbers[1] + numbers[2]);
-
-                if (buffer.Equals(999))
-                {
-                    IncreaseLetters();
-                    return;
-                }
-
-                buffer++;
-
-                numbers[0] = Convert.ToChar(buffer / 100);
-                numbers[1] = Convert.ToChar(buffer % 100 / 10);
-                numbers[2] = Convert.ToChar(buffer % 10);
-            }
-            catch (Exception ex)
-            {
-                //Дописать
-            }
+            this.numbers = numbers.ToCharArray();
+            this.symbols = symbols;
+            this.region = region;
         }
 
-        public void IncreaseLetters()
+        public static Plate GenerateRandom(List<Plate> plates, int region)
         {
-            //Проверка символов на их буквы
-            if (symbols[2].Equals('х'))
+            Random rnd = new Random();
+            Plate plate = new Plate();
+            do
             {
-                if (symbols[1].Equals('х'))
+                for (int i = 0; i <= 2; i++)
                 {
-                    try
-                    {
-                        symbols[0] = symbolSet[Array.IndexOf(symbolSet, symbols[0]) + 1];
-                    }
-                    catch (IndexOutOfRangeException)
-                    {
-                        //Если уже "XXX"
-                        return;
-                    }
-                    return;
+                    plate.Symbols[i] = symbolSet[rnd.Next(11)];
+                    plate.Numbers[i] = Convert.ToChar(rnd.Next(10).ToString());
                 }
-                else
-                {
-                    symbols[1] = symbolSet[Array.IndexOf(symbolSet, symbols[1]) + 1];
-                    return;
-                }
-            }
+                plate.Region = region;
+            } while (plates.Contains(plate));
 
-            //Если последний символ не 'х', то увеличиваем на 1
-            symbols[2] = symbolSet[Array.IndexOf(symbolSet, symbols[2]) + 1];
+            return plate;
         }
 
-        public void DecreaseNumbers()
+        public static Plate GenerateNext(List<Plate> plates)
         {
-            try
-            {
-                int buffer = Convert.ToInt32(numbers[0] + numbers[1] + numbers[2]);
-
-                if (buffer.Equals(000))
-                {
-                    DecreaseLetters();
-                    return;
-                }
-
-                buffer--;
-
-                numbers[0] = Convert.ToChar(buffer / 100);
-                numbers[1] = Convert.ToChar(buffer % 100 / 10);
-                numbers[2] = Convert.ToChar(buffer % 10);
-            }
-            catch (Exception ex)
-            {
-                //Дописать
-            }
+            Plate newPlate = new Plate(plates[plates.Count - 1]);
+            return IncreaseLetters(plates, newPlate);
         }
 
-        public void DecreaseLetters()
+        public static Plate GeneratePrevious(List<Plate> plates)
         {
-            if (symbols[2].Equals('а'))
+            Plate newPlate = new Plate(plates[plates.Count - 1]);
+            return DecreaseLetters(plates, newPlate);
+        }
+
+        private static Plate IncreaseNumbers(List<Plate> plates, Plate newPlate)
+        {
+            int numbers = Convert.ToInt32(new string(newPlate.numbers));
+
+            while (plates.Contains(newPlate) && numbers != 999)
             {
-                if (symbols[1].Equals('а'))
-                {
-                    try
-                    {
-                        symbols[0] = symbolSet[Array.IndexOf(symbolSet, symbols[0]) - 1];
-                    }
-                    catch (IndexOutOfRangeException)
-                    {
-                        //Если номер уже "AAA"
-                        return;
-                    }
-                    return;
-                }
-                else
-                {
-                    symbols[1] = symbolSet[Array.IndexOf(symbolSet, symbols[1]) - 1];
-                    return;
-                }
+                numbers += 1;
+                newPlate.numbers[0] = (char)(numbers / 100 + 48);
+                newPlate.numbers[1] = (char)(numbers / 10 % 10 + 48);
+                newPlate.numbers[2] = (char)(numbers % 10 + 48);
             }
 
-            symbols[2] = symbolSet[Array.IndexOf(symbolSet, symbols[2]) - 1];
+            return plates.Contains(newPlate) ? null : newPlate;
+        }
+
+        private static Plate IncreaseLetters(List<Plate> plates, Plate newPlate)
+        {
+            //12-ричное представление символов
+            int symbols = 144 * Array.IndexOf(symbolSet, newPlate.symbols[0]) + 12 * Array.IndexOf(symbolSet, newPlate.symbols[1]) + Array.IndexOf(symbolSet, newPlate.symbols[2]);
+            Plate increased;
+
+            do
+            {
+                increased = IncreaseNumbers(plates, new Plate(newPlate));
+                if (increased != null || symbols == 0)
+                {
+                    return increased;
+                }
+
+                symbols = (symbols + 1) % 1728;
+                newPlate.symbols[0] = symbolSet[symbols / 144];
+                newPlate.symbols[1] = symbolSet[symbols / 12 % 12];
+                newPlate.symbols[2] = symbolSet[symbols % 12];
+                newPlate.numbers = new char[] { '0', '0', '0' };
+            } while (plates.Contains(newPlate));
+
+            return newPlate;
+        }
+
+        private static Plate DecreaseNumbers(List<Plate> plates, Plate newPlate)
+        {
+            int numbers = Convert.ToInt32(new string(newPlate.numbers));
+
+            while (plates.Contains(newPlate) && numbers != 0)
+            {
+                numbers -= 1;
+                newPlate.numbers[0] = (char)(numbers / 100 + 48);
+                newPlate.numbers[1] = (char)(numbers / 10 % 10 + 48);
+                newPlate.numbers[2] = (char)(numbers % 10 + 48);
+            }
+
+            return plates.Contains(newPlate) ? null : newPlate;
+        }
+
+        private static Plate DecreaseLetters(List<Plate> plates, Plate newPlate)
+        {
+            //12-ричное представление символов
+            int symbols = 144 * Array.IndexOf(symbolSet, newPlate.symbols[0]) + 12 * Array.IndexOf(symbolSet, newPlate.symbols[1]) + Array.IndexOf(symbolSet, newPlate.symbols[2]);
+            Plate decreased;
+
+            do
+            {
+                decreased = DecreaseNumbers(plates, new Plate(newPlate));
+                if (decreased != null || symbols == 0)
+                {
+                    return decreased;
+                }
+
+                symbols = (symbols + 1727) % 1728;
+                newPlate.symbols[0] = symbolSet[symbols / 144];
+                newPlate.symbols[1] = symbolSet[symbols / 12 % 12];
+                newPlate.symbols[2] = symbolSet[symbols % 12];
+                newPlate.numbers = new char[] { '9', '9', '9' };
+            } while (plates.Contains(newPlate));
+
+            return newPlate;
         }
     }
 }
