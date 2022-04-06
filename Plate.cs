@@ -12,7 +12,7 @@ namespace License_Plate_Generator
         private char[] numbers;
         private char[] symbols;
         private int region;
-        private string fullNumber;
+        private string fullNumber = "";
 
         public char[] Symbols
         {
@@ -42,7 +42,11 @@ namespace License_Plate_Generator
         }
         public override bool Equals(object obj)
         {
-            fullNumber = ToString() + $"{region}";
+            if (fullNumber == "")
+            {
+                fullNumber = ToString() + $"{region}";
+            }
+
             return obj is Plate plate && FullNumber.Equals(plate.FullNumber);
         }
         public override int GetHashCode()
