@@ -14,6 +14,9 @@ namespace License_Plate_Generator
         private List<Plate> plates;
         private List<Plate> regionPlates;
         private int regionSelected;
+        int _oldWidth, _oldHeight;
+        float proportion = 2f;
+
 
         public MainForm()
         {
@@ -202,6 +205,27 @@ namespace License_Plate_Generator
         private void RandomCMS_Click(object sender, EventArgs e)
         {
             RandomTSMI_Click(sender, e);
+        }
+
+        private void MainForm_ResizeBegin(object sender, EventArgs e)
+        {
+            _oldWidth = Width;
+            _oldHeight = Height;
+        }
+
+        private void MainForm_ResizeEnd(object sender, EventArgs e)
+        {
+            Control control = (Control)sender;
+            // если изменилась ширина с прошлого раза
+            if (_oldWidth != Width)
+            {
+                control.Size = new Size(control.Size.Width, (int)(control.Size.Width * 1f / proportion));
+            }
+            // если изменилась высота с прошлого раза
+            if (_oldHeight != Height)
+            {
+                control.Size = new Size((int)(control.Size.Height * proportion), control.Size.Height);
+            }
         }
     }
 }
