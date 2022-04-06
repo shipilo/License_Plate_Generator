@@ -12,7 +12,7 @@ namespace License_Plate_Generator
         private char[] numbers;
         private char[] symbols;
         private int region;
-        private string fullNumber = "";
+        private string fullNumber;
 
         public char[] Symbols
         {
@@ -29,12 +29,11 @@ namespace License_Plate_Generator
             get { return region; }
             set { region = value; }
         }
-        public string FullNumber
-        {
-            get { return fullNumber; }
-            set { fullNumber = value; }
-        }
 
+        private void GenerateFullNumber()
+        {
+            fullNumber = ToString() + $"{region}";
+        }
         public override string ToString()
         {
             //пример: "A000AA"
@@ -42,12 +41,7 @@ namespace License_Plate_Generator
         }
         public override bool Equals(object obj)
         {
-            if (fullNumber == "")
-            {
-                fullNumber = ToString() + $"{region}";
-            }
-
-            return obj is Plate plate && FullNumber.Equals(plate.FullNumber);
+            return obj is Plate plate && fullNumber.Equals(plate.fullNumber);
         }
         public override int GetHashCode()
         {
@@ -62,30 +56,34 @@ namespace License_Plate_Generator
         {
             numbers = new char[3];
             symbols = new char[3];
-    }
+        }
         public Plate(Plate plate)
         {
             numbers = (char[])plate.numbers.Clone();
             symbols = (char[])plate.symbols.Clone();
             region = plate.region;
+            GenerateFullNumber();
         }
         public Plate(string numbers, string symbols, int region)
         {
             this.numbers = numbers.ToCharArray();
             this.symbols = symbols.ToCharArray();
             this.region = region;
+            GenerateFullNumber();
         }
         public Plate(string numbers, char[] symbols, int region)
         {
             this.numbers = numbers.ToCharArray();
             this.symbols = symbols;
             this.region = region;
+            GenerateFullNumber();
         }
 
         public static Plate GenerateRandom(List<Plate> plates, int region)
         {
             Random rnd = new Random();
             Plate plate = new Plate();
+            plate.Region = region;
             do
             {
                 for (int i = 0; i <= 2; i++)
@@ -93,7 +91,7 @@ namespace License_Plate_Generator
                     plate.Symbols[i] = symbolSet[rnd.Next(11)];
                     plate.Numbers[i] = Convert.ToChar(rnd.Next(10).ToString());
                 }
-                plate.Region = region;
+                plate.GenerateFullNumber();
             } while (plates.Contains(plate));
 
             return plate;
@@ -121,6 +119,7 @@ namespace License_Plate_Generator
                 newPlate.numbers[0] = (char)(numbers / 100 + 48);
                 newPlate.numbers[1] = (char)(numbers / 10 % 10 + 48);
                 newPlate.numbers[2] = (char)(numbers % 10 + 48);
+                newPlate.GenerateFullNumber();
             }
 
             return plates.Contains(newPlate) ? null : newPlate;
@@ -145,6 +144,7 @@ namespace License_Plate_Generator
                 newPlate.symbols[1] = symbolSet[symbols / 12 % 12];
                 newPlate.symbols[2] = symbolSet[symbols % 12];
                 newPlate.numbers = new char[] { '0', '0', '0' };
+                newPlate.GenerateFullNumber();
             } while (plates.Contains(newPlate));
 
             return newPlate;
@@ -160,6 +160,7 @@ namespace License_Plate_Generator
                 newPlate.numbers[0] = (char)(numbers / 100 + 48);
                 newPlate.numbers[1] = (char)(numbers / 10 % 10 + 48);
                 newPlate.numbers[2] = (char)(numbers % 10 + 48);
+                newPlate.GenerateFullNumber();
             }
 
             return plates.Contains(newPlate) ? null : newPlate;
@@ -184,6 +185,7 @@ namespace License_Plate_Generator
                 newPlate.symbols[1] = symbolSet[symbols / 12 % 12];
                 newPlate.symbols[2] = symbolSet[symbols % 12];
                 newPlate.numbers = new char[] { '9', '9', '9' };
+                newPlate.GenerateFullNumber();
             } while (plates.Contains(newPlate));
 
             return newPlate;
