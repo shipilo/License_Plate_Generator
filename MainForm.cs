@@ -26,6 +26,9 @@ namespace License_Plate_Generator
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //Избежание наезда элементов
+            MinimumSize = new Size(430, 350);
+
             sqlConnection.Open();
             sqlCommand.CommandText = "SELECT * FROM LPG_history";
             try

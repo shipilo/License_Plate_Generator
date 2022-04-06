@@ -98,6 +98,7 @@ namespace License_Plate_Generator
             // 
             // RegionComboBox
             // 
+            this.RegionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.RegionComboBox.Items.AddRange(new object[] {
             "01 (Республика Адыгея)",
             "02 (Республика Башкортостан)",
