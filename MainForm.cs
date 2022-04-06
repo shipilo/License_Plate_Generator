@@ -109,7 +109,7 @@ namespace License_Plate_Generator
             for(int i=(int)(long)sqlCommand.ExecuteScalar(); i < plates.Count; i++)
             {
                 sqlCommand.CommandText = $"INSERT INTO LPG_history (numbers, symbols, region) " +
-                                         $"VALUES ('{new string(plates[i].numbers)}', '{new string(plates[i].symbols)}', {plates[i].region})";
+                                         $"VALUES ('{plates[i].numbers}', '{plates[i].symbols}', {plates[i].region})";
                 sqlCommand.ExecuteNonQuery();
             }
             sqlCommand.CommandText = "end";

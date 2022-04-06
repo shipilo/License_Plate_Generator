@@ -8,9 +8,9 @@ namespace License_Plate_Generator
 {
     public class Plate
     {
-        public static char[] symbolSet;
-        public char[] numbers;
-        public char[] symbols;
+        public static List<char> symbolSet;
+        public string numbers;
+        public string symbols;
         public int region;
         private string fullNumber;
 
@@ -21,7 +21,7 @@ namespace License_Plate_Generator
         public override string ToString()
         {
             //пример: "A000AA"
-            return $"{symbols[0]}{numbers[0]}{numbers[1]}{numbers[2]}{symbols[1]}{symbols[2]}".ToUpper(); 
+            return $"{symbols[0]}{numbers}{symbols[1]}{symbols[2]}".ToUpper(); 
         }
         public override bool Equals(object obj)
         {
@@ -34,30 +34,19 @@ namespace License_Plate_Generator
 
         static Plate()
         {
-            symbolSet = new char[] { 'а', 'в', 'е', 'к', 'м', 'н', 'о', 'р', 'с', 'т', 'у', 'х' };
+            symbolSet = new List<char>(){ 'а', 'в', 'е', 'к', 'м', 'н', 'о', 'р', 'с', 'т', 'у', 'х' };
         }
-        public Plate()
-        {
-            numbers = new char[3];
-            symbols = new char[3];
-        }
+        private Plate() { }
         public Plate(Plate plate)
         {
-            numbers = (char[])plate.numbers.Clone();
-            symbols = (char[])plate.symbols.Clone();
+            numbers = plate.numbers;
+            symbols = plate.symbols;
             region = plate.region;
             GenerateFullNumber();
         }
         public Plate(string numbers, string symbols, int region)
         {
-            this.numbers = numbers.ToCharArray();
-            this.symbols = symbols.ToCharArray();
-            this.region = region;
-            GenerateFullNumber();
-        }
-        public Plate(string numbers, char[] symbols, int region)
-        {
-            this.numbers = numbers.ToCharArray();
+            this.numbers = numbers;
             this.symbols = symbols;
             this.region = region;
             GenerateFullNumber();
@@ -70,11 +59,8 @@ namespace License_Plate_Generator
             plate.region = region;
             do
             {
-                for (int i = 0; i <= 2; i++)
-                {
-                    plate.symbols[i] = symbolSet[rnd.Next(11)];
-                    plate.numbers[i] = Convert.ToChar(rnd.Next(10).ToString());
-                }
+                plate.symbols = string.Join("", symbolSet[rnd.Next(11)], symbolSet[rnd.Next(11)], symbolSet[rnd.Next(11)]);
+                plate.numbers = $"{rnd.Next(1000)}";
                 plate.GenerateFullNumber();
             } while (plates.Contains(plate));
 
@@ -95,14 +81,15 @@ namespace License_Plate_Generator
 
         private static Plate IncreaseNumbers(List<Plate> plates, Plate newPlate)
         {
-            int numbers = Convert.ToInt32(new string(newPlate.numbers));
+            int numbers = Convert.ToInt32(newPlate.numbers);
 
             while (plates.Contains(newPlate) && numbers != 999)
             {
                 numbers += 1;
-                newPlate.numbers[0] = (char)(numbers / 100 + 48);
-                newPlate.numbers[1] = (char)(numbers / 10 % 10 + 48);
-                newPlate.numbers[2] = (char)(numbers % 10 + 48);
+                newPlate.numbers = "";
+                newPlate.numbers += $"{numbers / 100}";
+                newPlate.numbers += $"{numbers / 10 % 10}";
+                newPlate.numbers += $"{numbers % 10}";
                 newPlate.GenerateFullNumber();
             }
 
@@ -112,7 +99,7 @@ namespace License_Plate_Generator
         private static Plate IncreaseLetters(List<Plate> plates, Plate newPlate)
         {
             //12-ричное представление символов
-            int symbols = 144 * Array.IndexOf(symbolSet, newPlate.symbols[0]) + 12 * Array.IndexOf(symbolSet, newPlate.symbols[1]) + Array.IndexOf(symbolSet, newPlate.symbols[2]);
+            int symbols = 144 * symbolSet.IndexOf(newPlate.symbols[0]) + 12 * symbolSet.IndexOf(newPlate.symbols[1]) + symbolSet.IndexOf(newPlate.symbols[2]);
             Plate increased;
 
             do
@@ -124,10 +111,11 @@ namespace License_Plate_Generator
                 }
 
                 symbols = (symbols + 1) % 1728;
-                newPlate.symbols[0] = symbolSet[symbols / 144];
-                newPlate.symbols[1] = symbolSet[symbols / 12 % 12];
-                newPlate.symbols[2] = symbolSet[symbols % 12];
-                newPlate.numbers = new char[] { '0', '0', '0' };
+                newPlate.symbols = "";
+                newPlate.symbols += symbolSet[symbols / 144];
+                newPlate.symbols += symbolSet[symbols / 12 % 12];
+                newPlate.symbols += symbolSet[symbols % 12];
+                newPlate.numbers = "000";
                 newPlate.GenerateFullNumber();
             } while (plates.Contains(newPlate));
 
@@ -136,14 +124,15 @@ namespace License_Plate_Generator
 
         private static Plate DecreaseNumbers(List<Plate> plates, Plate newPlate)
         {
-            int numbers = Convert.ToInt32(new string(newPlate.numbers));
+            int numbers = Convert.ToInt32(newPlate.numbers);
 
             while (plates.Contains(newPlate) && numbers != 0)
             {
                 numbers -= 1;
-                newPlate.numbers[0] = (char)(numbers / 100 + 48);
-                newPlate.numbers[1] = (char)(numbers / 10 % 10 + 48);
-                newPlate.numbers[2] = (char)(numbers % 10 + 48);
+                newPlate.numbers = "";
+                newPlate.numbers += $"{numbers / 100}";
+                newPlate.numbers += $"{numbers / 10 % 10}";
+                newPlate.numbers += $"{numbers % 10}";
                 newPlate.GenerateFullNumber();
             }
 
@@ -153,7 +142,7 @@ namespace License_Plate_Generator
         private static Plate DecreaseLetters(List<Plate> plates, Plate newPlate)
         {
             //12-ричное представление символов
-            int symbols = 144 * Array.IndexOf(symbolSet, newPlate.symbols[0]) + 12 * Array.IndexOf(symbolSet, newPlate.symbols[1]) + Array.IndexOf(symbolSet, newPlate.symbols[2]);
+            int symbols = 144 * symbolSet.IndexOf(newPlate.symbols[0]) + 12 * symbolSet.IndexOf(newPlate.symbols[1]) + symbolSet.IndexOf(newPlate.symbols[2]);
             Plate decreased;
 
             do
@@ -165,10 +154,11 @@ namespace License_Plate_Generator
                 }
 
                 symbols = (symbols + 1727) % 1728;
-                newPlate.symbols[0] = symbolSet[symbols / 144];
-                newPlate.symbols[1] = symbolSet[symbols / 12 % 12];
-                newPlate.symbols[2] = symbolSet[symbols % 12];
-                newPlate.numbers = new char[] { '9', '9', '9' };
+                newPlate.symbols = "";
+                newPlate.symbols += symbolSet[symbols / 144];
+                newPlate.symbols += symbolSet[symbols / 12 % 12];
+                newPlate.symbols += symbolSet[symbols % 12];
+                newPlate.numbers = "999";
                 newPlate.GenerateFullNumber();
             } while (plates.Contains(newPlate));
 
