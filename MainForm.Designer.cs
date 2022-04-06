@@ -282,11 +282,11 @@ namespace License_Plate_Generator
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = global::License_Plate_Generator.Properties.Settings.Default.BackColor;
             this.ClientSize = new System.Drawing.Size(800, 600);
+            this.Controls.Add(this.MenuStrip);
             this.Controls.Add(this.ColorButton);
             this.Controls.Add(this.RegionLabel);
             this.Controls.Add(this.PlateLabel);
             this.Controls.Add(this.PlatePictureBox);
-            this.Controls.Add(this.MenuStrip);
             this.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", global::License_Plate_Generator.Properties.Settings.Default, "BackColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.DataBindings.Add(new System.Windows.Forms.Binding("Location", global::License_Plate_Generator.Properties.Settings.Default, "WindowLocation", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Location = global::License_Plate_Generator.Properties.Settings.Default.WindowLocation;
