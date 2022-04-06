@@ -15,7 +15,7 @@ namespace License_Plate_Generator
         private List<Plate> regionPlates;
         private int regionSelected;
         int _oldWidth, _oldHeight;
-        float proportion = 2f;
+        private readonly float proportion = 2f;
 
 
         public MainForm()
@@ -213,9 +213,10 @@ namespace License_Plate_Generator
             _oldHeight = Height;
         }
 
-        private void MainForm_ResizeEnd(object sender, EventArgs e)
+        private void MainForm_SizeChanged(object sender, EventArgs e)
         {
             Control control = (Control)sender;
+
             // если изменилась ширина с прошлого раза
             if (_oldWidth != Width)
             {
