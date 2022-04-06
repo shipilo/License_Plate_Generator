@@ -26,6 +26,9 @@ namespace License_Plate_Generator
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //Избежание наезда элементов
+            MinimumSize = new Size(430, 350);
+
             sqlConnection.Open();
             sqlCommand.CommandText = "SELECT * FROM LPG_history";
             try
@@ -106,7 +109,7 @@ namespace License_Plate_Generator
             for(int i=(int)(long)sqlCommand.ExecuteScalar(); i < plates.Count; i++)
             {
                 sqlCommand.CommandText = $"INSERT INTO LPG_history (numbers, symbols, region) " +
-                                         $"VALUES ('{new string(plates[i].Numbers)}', '{new string(plates[i].Symbols)}', {plates[i].Region})";
+                                         $"VALUES ('{new string(plates[i].numbers)}', '{new string(plates[i].symbols)}', {plates[i].region})";
                 sqlCommand.ExecuteNonQuery();
             }
             sqlCommand.CommandText = "end";
@@ -133,7 +136,7 @@ namespace License_Plate_Generator
             }
 
             plates.AddRange(regionPlates.FindAll(x => !plates.Contains(x)));
-            regionPlates = plates.FindAll(x => x.Region == regionSelected);
+            regionPlates = plates.FindAll(x => x.region == regionSelected);
             RegionLabel.Text = $"{regionSelected}";
             PlateLabel.Text = regionPlates.Count == 0 ? "" : regionPlates[regionPlates.Count - 1].ToString();
         }
