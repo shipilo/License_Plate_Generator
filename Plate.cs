@@ -9,26 +9,10 @@ namespace License_Plate_Generator
     public class Plate
     {
         public static char[] symbolSet;
-        private char[] numbers;
-        private char[] symbols;
-        private int region;
+        public char[] numbers;
+        public char[] symbols;
+        public int region;
         private string fullNumber;
-
-        public char[] Symbols
-        {
-            get { return symbols; }
-            set { symbols = value; }
-        }
-        public char[] Numbers
-        {
-            get { return numbers; }
-            set { numbers = value; }
-        }
-        public int Region
-        {
-            get { return region; }
-            set { region = value; }
-        }
 
         private void GenerateFullNumber()
         {
@@ -83,13 +67,13 @@ namespace License_Plate_Generator
         {
             Random rnd = new Random();
             Plate plate = new Plate();
-            plate.Region = region;
+            plate.region = region;
             do
             {
                 for (int i = 0; i <= 2; i++)
                 {
-                    plate.Symbols[i] = symbolSet[rnd.Next(11)];
-                    plate.Numbers[i] = Convert.ToChar(rnd.Next(10).ToString());
+                    plate.symbols[i] = symbolSet[rnd.Next(11)];
+                    plate.numbers[i] = Convert.ToChar(rnd.Next(10).ToString());
                 }
                 plate.GenerateFullNumber();
             } while (plates.Contains(plate));
