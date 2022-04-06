@@ -15,7 +15,7 @@ namespace License_Plate_Generator
         private string fullNumber;
 
         private void GenerateFullNumber()
-        {
+        {   
             fullNumber = ToString() + $"{region}";
         }
         public override string ToString()
@@ -72,7 +72,7 @@ namespace License_Plate_Generator
             {
                 for (int i = 0; i <= 2; i++)
                 {
-                    plate.symbols[i] = symbolSet[rnd.Next(11)];
+                    plate.symbols[i] = symbolSet[rnd.Next(12)];
                     plate.numbers[i] = Convert.ToChar(rnd.Next(10).ToString());
                 }
                 plate.GenerateFullNumber();
