@@ -15,7 +15,7 @@ namespace License_Plate_Generator
         private string fullNumber;
 
         private void GenerateFullNumber()
-        {
+        {   
             fullNumber = ToString() + $"{region}";
         }
         public override string ToString()
@@ -59,7 +59,7 @@ namespace License_Plate_Generator
             plate.region = region;
             do
             {
-                plate.symbols = string.Join("", symbolSet[rnd.Next(11)], symbolSet[rnd.Next(11)], symbolSet[rnd.Next(11)]);
+                plate.symbols = string.Join("", symbolSet[rnd.Next(12)], symbolSet[rnd.Next(12)], symbolSet[rnd.Next(12)]);
                 plate.numbers = $"{rnd.Next(1000)}";
                 plate.GenerateFullNumber();
             } while (plates.Contains(plate));
